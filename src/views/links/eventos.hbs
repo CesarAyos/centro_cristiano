@@ -1,0 +1,20 @@
+<div class="container p-4">
+    <div class="row">
+        {{#each eventos}}
+            <div class="card border-success mb-3" style="max-width: 18rem;">
+                <div class="card-header bg-transparent border-success">{{Dia}}</div>
+                <div class="card-body text-success">
+                    <h5 class="card-title">{{descripcion}}</h5>
+                    <p class="card-text">{{fecha}}</p>
+                </div>
+                <div class="card-footer bg-transparent border-success">{{Fecha}},{{Hora}}</div>
+            </div>
+        {{else}}
+            <div class="col-md-4 mx-auto">
+                <div class="card car-body text-center">
+                    <p>No Tienes Eventos Creados</p>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>

@@ -1,0 +1,253 @@
+<main>
+  <div class="container d-flex justify-content-center mt-3 mb-3">
+    <div
+      class="card bg-body-secondary"
+      style="width: 70rem; box-shadow: 10px 10px 5px 0px rgba(54,130,123,0.75);"
+    >
+      <div class="d-flex justify-content-center m-2">
+        <img src="/img/logo.png" alt="logo" class="logo-form" />
+      </div>
+      <h2 class="d-flex justify-content-center m-2">REPORTES DE GRUPOS BIBLICOS</h2>
+      <div class="card-body" style="background-color: rgb(0, 109, 98);">
+        <form action="/links/planilla" method="POST" class="row g-3">
+          <div class="form-group col-md-6">
+            <label class="form-label h3">Nombre del Grupo Biblico</label>
+            <input
+              type="text"
+              class="form-control"
+              name="nombre_grupo"
+              placeholder="Nombre del Grupo Biblico"
+              required
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label class="form-label h3">Lider encargado</label>
+            <input
+              type="text"
+              class="form-control"
+              name="lider"
+              placeholder="Nombre del Lider encargado del grupo Biblco"
+              required
+            />
+          </div>
+          <div class="form-group col-6">
+            <label class="form-label h3">Nombre del Anfitrion</label>
+            <input
+              type="text"
+              class="form-control"
+              name="anfrition"
+              placeholder="Nombre del dueño de la casa"
+              required
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label class="form-label h3">Ofrenda</label>
+            <input
+              type="number"
+              class="form-control"
+              name="ofrenda"
+              placeholder="Cantidad de ofrenda"
+              required
+            />
+          </div>
+
+          <div class="form-group col-md-12">
+            <label class="form-label h3">Direccion, Casa , Calle</label>
+            <input
+              type="text"
+              class="form-control"
+              name="direccion"
+              placeholder="Direccion del Grupo Biblico"
+              required
+            />
+          </div>
+          <div class="form-group col-3">
+            <label class="form-label h3">Felipes</label>
+            <input
+              type="number"
+              class="form-control"
+              name="felipes"
+              placeholder="Numero donde se realizara la entrega"
+              required
+            />
+          </div>
+          <div class="form-group col-3">
+            <label class="form-label h3">Asistentes</label>
+            <input
+              type="number"
+              class="form-control"
+              name="asistentes"
+              placeholder="Cantidad de personas presentes"
+              required
+            />
+          </div>
+          <div class="form-group col-3">
+            <label class="form-label h3">niños</label>
+            <input
+              type="number"
+              class="form-control"
+              name="niños"
+              placeholder="cantidad de niños presentes"
+              required
+            />
+          </div>
+          <div class="form-group col-3">
+            <label class="form-label h3">Ausentes</label>
+            <input
+              type="number"
+              class="form-control"
+              name="ausentes"
+              placeholder="cantidad de personas ausentes"
+              required
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputCity" class="form-label h3">Novedades</label>
+            <input
+              type="text"
+              class="form-control"
+              name="novedades"
+              placeholder="Observaciones del dia"
+              required
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputCity" class="form-label h3">Fecha</label>
+            <input
+              type="text"
+              class="form-control"
+              name="fecha"
+              placeholder="Dia/mes/hora"
+              required
+            />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputState" class="form-label h3">Area </label>
+            <select class="form-select" name="area">
+              <option selected>Area a la que pertenece</option>
+              <option>Area 1</option>
+              <option>Area 2</option>
+              <option>Area 3</option>
+              <option>Area 4</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputCity" class="form-label h3">Acompañamiento</label>
+            <input
+              type="text"
+              class="form-control"
+              name="acompañamiento"
+              placeholder="Nombre del acompañamiento"
+              required
+            />
+          </div>
+
+          <div class="card-tittle d-flex mt-4 justify-content-center">
+            <h1>Personas nuevas</h1>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputCity" class="form-label h3">Nombre y Apellido</label>
+            <input
+              type="text"
+              class="form-control"
+              name="persona_nueva1"
+              placeholder="Nombre y apellido de la Nombre y Apellido"
+            />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputCity" class="form-label h3">Numero de contacto</label>
+            <input
+              type="number"
+              class="form-control"
+              name="persona_nueva_contacto1"
+              placeholder="numero de telefono de la Nombre y Apellido"
+            />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputCity" class="form-label h3">Edad</label>
+            <input
+              type="number"
+              class="form-control"
+              name="persona_nueva_edad1"
+              placeholder="Edad de la Nombre y Apellido"
+            />
+          </div>
+
+          <div class="card-tittle d-flex mt-4 justify-content-center">
+            <h1>Bautizos</h1>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputCity" class="form-label h3">¿Tienes Personas a
+              bautizar?</label>
+            <input
+              type="text"
+              class="form-control"
+              name="tienes"
+              placeholder="si o no"
+              required
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputCity" class="form-label h3">Cantidad de personas a
+              bauitzar</label>
+            <input
+              type="number"
+              class="form-control"
+              name="cantidad_bautizar"
+              placeholder="cantidad"
+              required
+            />
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="inputCity" class="form-label h3">Nombre y Apellido</label>
+            <input
+              type="text"
+              class="form-control"
+              name="persona_nueva_bautizar1"
+              placeholder="Nombre y apellido de la Nombre y Apellido"
+            />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputCity" class="form-label h3">Numero de contacto</label>
+            <input
+              type="number"
+              class="form-control"
+              name="persona_contacto_bautizo1"
+              placeholder="numero de telefono de la Nombre y Apellido"
+            />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputCity" class="form-label h3">Edad</label>
+            <input
+              type="number"
+              class="form-control"
+              name="persona_edad_bautizar1"
+              placeholder="Edad de la Nombre y Apellido"
+            />
+          </div>
+
+          <div class="form-group col-12">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="gridCheck"
+                required
+              />
+              <label class="form-check-label" for="gridCheck">
+                E revisado y estoy seguro de la informacion suministrada
+              </label>
+            </div>
+          </div>
+          <div class="col-12 d-flex mt-4 justify-content-center m">
+            <form action="/links/planilla">
+              <button type="submit" class="btn btn-primary btn-lg">Enviar
+                reporte</button>
+            </form>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
