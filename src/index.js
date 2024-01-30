@@ -3,6 +3,8 @@ const morgan = require("morgan");
 const mysql = require("mysql");
 const multer = require("multer");
 const bodyParser = require("body-parser");
+const pg =  require ('pg');
+const {config} = require("dotenv");
 
 //plantilla,
 const exphbs = require("express-handlebars");
@@ -79,8 +81,8 @@ app.listen(app.get("port"), (err, res) => {
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
 
-import pg from 'pg'
-import {config} from 'dotenv'
+
+
 
 config()
 
