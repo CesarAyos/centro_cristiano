@@ -1,8 +1,9 @@
 module.exports = {
   database: {
-    host: "localhost",
-    user: "postgres",
-    password: "051192",
+    host: "dpg-cms6tiicn0vc73becmhg-a",
+    Port: "5432",
+    user: "centro",
+    password: "PW20xnB5uiCAzpSDRsHPhASL2DRkgEw5",
     database: "centro",
   },
 };

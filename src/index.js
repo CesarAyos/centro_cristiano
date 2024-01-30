@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const mysql = require("mysql");
 const multer = require("multer");
 const bodyParser = require("body-parser");
-const {pool} =  require ('pg');
+const {Pool} =  require ('pg');
 
 
 //plantilla,
