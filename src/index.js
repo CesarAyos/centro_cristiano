@@ -78,3 +78,12 @@ app.listen(app.get("port"), (err, res) => {
 // Establecer el motor de plantillas
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
+
+import pg from 'pg'
+import {config} from 'dotenv'
+
+config()
+
+const pool = new pg.Pool({
+  connectionString: process.env.DATABASE_URL
+})
