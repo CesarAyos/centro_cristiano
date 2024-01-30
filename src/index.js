@@ -3,8 +3,8 @@ const morgan = require("morgan");
 const mysql = require("mysql");
 const multer = require("multer");
 const bodyParser = require("body-parser");
-const pg =  require ('pg');
-const {config} = require("dotenv");
+const {pool} =  require ('pg');
+
 
 //plantilla,
 const exphbs = require("express-handlebars");
@@ -84,9 +84,8 @@ app.set("views", path.join(__dirname, "views"));
 
 
 
-config()
 
-const pool = new pg.Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-})
+
+
+
+
