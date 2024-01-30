@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const mysql = require("mysql");
 const multer = require("multer");
 const bodyParser = require("body-parser");
-const {Pool} =  require ('pg');
+
 
 
 //plantilla,
@@ -80,6 +80,31 @@ app.listen(app.get("port"), (err, res) => {
 // Establecer el motor de plantillas
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
+
+
+
+
+
+
+
+const { Client } = require('pg');
+
+const client = new Client({
+  host: 'dpg-cms6tiicn0vc73becmhg-a',
+  port: 5432,
+  database: 'centro',
+  user: 'centro',
+  password: 'PW20xnB5uiCAzpSDRsHPhASL2DRkgEw5', 
+});
+
+client.connect(err => {
+  if (err) {
+    console.error('Error de conexión', err.stack);
+  } else {
+    console.log('Conectado a PostgreSQL');
+  }
+});
+
 
 
 
