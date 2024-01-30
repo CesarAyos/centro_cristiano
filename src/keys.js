@@ -1,7 +1,7 @@
 module.exports = {
   database: {
-    host: "0.0.0.0",
-    user: "root",
+    host: "dpg-cms6tiicn0vc73becmhg-a",
+    user: "centro",
     password: "",
     database: "centro",
   },
