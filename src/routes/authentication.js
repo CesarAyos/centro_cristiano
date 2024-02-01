@@ -1,45 +1,36 @@
+const { createClient } = require("@supabase/supabase-js");
 const express = require('express');
 const router = express.Router();
 
-const passport = require('passport');
-const { isLoggedIn } = require('../lib/auth');
 
-// SIGNUP
-router.get('/signup', (req, res) => {
-  res.render('auth/signup');
-});
+const supabaseUrl = 'https://wrdalmrnoeslzthwqnuo.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyZGFsbXJub2VzbHp0aHdxbnVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDY2NjA2NzQsImV4cCI6MjAyMjIzNjY3NH0.06458Qm3WYUFqscMrkk2MNOcPGXsqjAkbSsv1lZbjok';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-router.post('/signup', passport.authenticate('local.signup', {
-  successRedirect: '/profile',
-  failureRedirect: '/signup',
-  failureFlash: true
-}));
-
-// SINGIN
-router.get('/signin', (req, res) => {
-  res.render('auth/signin');
-});
-
-router.post('/signin', (req, res, next) => {
-  passport.authenticate('local.signin', {
-    successRedirect: '/profile',
-    failureRedirect: '/signin',
-    failureFlash: true
-  })(req, res,next);
-});
-
-router.get('/profile', isLoggedIn, (req, res) => {
-  res.render('profile');
-});
-
-router.get("/logout", (req, res, next) => {
-  req.logOut(req.user, err => {
-      if(err) return next(err);
-      res.redirect("/signin");  
+async function signIn(email, password) {
+  const { user, session, error } = await supabase.auth.signIn({
+    email,
+    password,
   });
-});
 
+  if (error) {
+    console.error("Error signing in: ", error.message);
+  } else {
+    console.log("User signed in: ", user);
+  }
+}
 
+async function signUp(email, password) {
+  const { user, session, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
 
+  if (error) {
+    console.error("Error signing up: ", error.message);
+  } else {
+    console.log("User signed up: ", user);
+  }
+}
 
 module.exports = router;

@@ -5,7 +5,6 @@ const multer = require("multer");
 const path = require("path");
 const app = express();
 const bodyParser = require("body-parser");
-const mysql = require("mysql");
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -21,14 +20,18 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const pool = require("../database");
-const { isLoggedIn } = require("../lib/auth");
+const { createClient } = require('@supabase/supabase-js')
+
+const supabaseUrl = 'https://wrdalmrnoeslzthwqnuo.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyZGFsbXJub2VzbHp0aHdxbnVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDY2NjA2NzQsImV4cCI6MjAyMjIzNjY3NH0.06458Qm3WYUFqscMrkk2MNOcPGXsqjAkbSsv1lZbjok'
+const supabase = createClient(supabaseUrl, supabaseKey)
+
 
 router.get("/planilla", (req, res) => {
   res.render("links/planilla");
 });
 
-router.post("/planilla", isLoggedIn, async (req, res) => {
+router.post("/planilla",  async (req, res) => {
   const {
     PASTOR_SUPERVISOR,
     COORDINADOR_DPTO,
@@ -55,53 +58,72 @@ router.post("/planilla", isLoggedIn, async (req, res) => {
     Asistencia_de_Ninos,
   } = req.body;
 
-  const newLink = {
-    PASTOR_SUPERVISOR,
-    COORDINADOR_DPTO,
-    SUPERVISOR_DE_RED,
-    FELIPE_DE_RED,
-    FELIPE_LIDER,
-    Asistencia_vea,
-    Felipes,
-    Etiopes,
-    Amigos,
-    Ninos,
-    Ausentes,
-    Convertidos_adultos,
-    Convertidos_ninos,
-    Reconciliados,
-    Diezmos,
-    Ofrendas,
-    Total_financiero,
-    Participacion_Mision_Amigo,
-    Participacion_Consolidacion,
-    Participacion_Discipulado_1,
-    Asistencia_a_la_Escuela_de_Liderazgo,
-    Asistencia_de_Amigos,
-    Asistencia_de_Ninos,
-  };
+  const { error } = await supabase
+    .from('planilla')
+    .insert([{
+      PASTOR_SUPERVISOR,
+      COORDINADOR_DPTO,
+      SUPERVISOR_DE_RED,
+      FELIPE_DE_RED,
+      FELIPE_LIDER,
+      Asistencia_vea,
+      Felipes,
+      Etiopes,
+      Amigos,
+      Ninos,
+      Ausentes,
+      Convertidos_adultos,
+      Convertidos_ninos,
+      Reconciliados,
+      Diezmos,
+      Ofrendas,
+      Total_financiero,
+      Participacion_Mision_Amigo,
+      Participacion_Consolidacion,
+      Participacion_Discipulado_1,
+      Asistencia_a_la_Escuela_de_Liderazgo,
+      Asistencia_de_Amigos,
+      Asistencia_de_Ninos,
+    }]);
 
-  await pool.query("INSERT INTO planilla set ?", [newLink]);
-  req.flash(
-    "success",
-    "El formulario a sido enviado con exito, alguna duda o modificacion, comunicarse con su Felipe lider , o sus Pastores"
-  );
-  res.redirect("/links/planilla");
+  if (error) {
+    console.log(error);
+  } else {
+    req.flash(
+      "success",
+      "El formulario a sido enviado con exito, alguna duda o modificacion, comunicarse con su Felipe lider , o sus Pastores"
+    );
+    res.redirect("/links/planilla");
+  }
 });
 
-router.get("/", isLoggedIn, async (req, res) => {
-  const planilla = await pool.query("SELECT * FROM planilla");
-  res.render("links/reportes", { planilla });
+router.get("/",  async (req, res) => {
+  const { data, error } = await supabase
+    .from('planilla')
+    .select('*');
+
+  if (error) {
+    console.log(error);
+  } else {
+    res.render("links/reportes", { planilla: data });
+  }
 });
 
-
-router.get("/editplanilla/:id", isLoggedIn, async (req, res) => {
+router.get("/editplanilla/:id",  async (req, res) => {
   const { id } = req.params;
-  const planilla = await pool.query("SELECT * FROM planilla WHERE id = ?", [id]);
-  res.render("links/editplanilla", { planilla: planilla[0] });
+  const { data, error } = await supabase
+    .from('planilla')
+    .select('*')
+    .eq('id', id);
+
+  if (error) {
+    console.log(error);
+  } else {
+    res.render("links/editplanilla", { planilla: data[0] });
+  }
 });
 
-router.post("/edit/:id", isLoggedIn, async (req, res) => {
+router.post("/edit/:id",  async (req, res) => {
   const { id } = req.params;
   const {
     nombre_grupo,
@@ -118,29 +140,38 @@ router.post("/edit/:id", isLoggedIn, async (req, res) => {
     area,
     acompañamiento,
   } = req.body;
-  const newLink = {
-    nombre_grupo,
-    lider,
-    anfrition,
-    ofrenda,
-    direccion,
-    felipes,
-    asistentes,
-    niños,
-    ausentes,
-    novedades,
-    fecha,
-    area,
-    acompañamiento,
-  };
-  await pool.query("UPDATE planilla set ? WHERE id ", [newLink, id]);
-  req - flash("success", "producto modificado");
-  res.redirect("/links/");
+
+  const { error } = await supabase
+    .from('planilla')
+    .update({
+      nombre_grupo,
+      lider,
+      anfrition,
+      ofrenda,
+      direccion,
+      felipes,
+      asistentes,
+      niños,
+      ausentes,
+      novedades,
+      fecha,
+      area,
+      acompañamiento,
+    })
+    .eq('id', id);
+
+  if (error) {
+    console.log(error);
+  } else {
+    req.flash("success", "producto modificado");
+    res.redirect("/links/");
+  }
 });
+
 
 // bautizos
 
-router.post("/bautizos", isLoggedIn, async (req, res) => {
+router.post("/bautizos", async (req, res) => {
   const {
     nombrelider,
     nombregrupo,
@@ -151,17 +182,25 @@ router.post("/bautizos", isLoggedIn, async (req, res) => {
     telefono,
   } = req.body;
 
-  const newLink = {
-    nombrelider,
-    nombregrupo,
-    nombres,
-    apellidos,
-    direccion,
-    edad,
-    telefono,
-  };
+  const { data, error } = await supabase
+    .from('bautizos')
+    .insert([
+      { 
+        nombrelider,
+        nombregrupo,
+        nombres,
+        apellidos,
+        direccion,
+        edad,
+        telefono,
+      },
+    ]);
 
-  await pool.query("INSERT INTO bautizos set ?", [newLink]);
+  if (error) {
+    console.log(error);
+    return;
+  }
+
   req.flash(
     "success",
     "El formulario a sido enviado con exito, alguna duda o modificacion, comunicarse con su Felipe lider , o sus Pastores"
@@ -169,15 +208,22 @@ router.post("/bautizos", isLoggedIn, async (req, res) => {
   res.redirect("/links/bautizos");
 });
 
-router.get("/editbautizos/:id", isLoggedIn, async (req, res) => {
+router.get("/editbautizos/:id", async (req, res) => {
   const { id } = req.params;
-  const bautizos = await pool.query("SELECT * FROM bautizos WHERE id = ?", [id]);
-  res.render("links/editbautizos", { bautizos: bautizos[0] });
+  const { data, error } = await supabase
+    .from('bautizos')
+    .select('*')
+    .eq('id', id);
+
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  res.render("links/editbautizos", { bautizos: data[0] });
 });
 
-
-
-router.post("/editbautizos/:id", isLoggedIn, async (req, res) => {
+router.post("/editbautizos/:id", async (req, res) => {
   const { id } = req.params;
   const {
     nombrelider,
@@ -188,25 +234,33 @@ router.post("/editbautizos/:id", isLoggedIn, async (req, res) => {
     edad,
     telefono,
   } = req.body;
-  const newLink = {
-    nombrelider,
-    nombregrupo,
-    nombres,
-    apellidos,
-    direccion,
-    edad,
-    telefono,
-  };
-  await pool.query("UPDATE bautizos set ? WHERE id = ?", [newLink, id]);
+
+  const { data, error } = await supabase
+    .from('bautizos')
+    .update({
+      nombrelider,
+      nombregrupo,
+      nombres,
+      apellidos,
+      direccion,
+      edad,
+      telefono,
+    })
+    .eq('id', id);
+
+  if (error) {
+    console.log(error);
+    return;
+  }
+
   req.flash("success", "producto modificado");
   res.redirect("/links/");
 });
 
 
-
 // nuevos
 
-router.post("/nuevos", isLoggedIn, async (req, res) => {
+router.post("/nuevos", async (req, res) => {
   const {
     nombrelidernuevo,
     nombregruponuevo,
@@ -217,17 +271,25 @@ router.post("/nuevos", isLoggedIn, async (req, res) => {
     telefononuevo,
   } = req.body;
 
-  const newLink = {
-    nombrelidernuevo,
-    nombregruponuevo,
-    nombresnuevo,
-    apellidosnuevo,
-    direccionnuevo,
-    edadnuevo,
-    telefononuevo,
-  };
+  const { error } = await supabase
+    .from('nuevos')
+    .insert([
+      { 
+        nombrelidernuevo,
+        nombregruponuevo,
+        nombresnuevo,
+        apellidosnuevo,
+        direccionnuevo,
+        edadnuevo,
+        telefononuevo,
+      },
+    ]);
 
-  await pool.query("INSERT INTO nuevos set ?", [newLink]);
+  if (error) {
+    console.log(error);
+    return;
+  }
+
   req.flash(
     "success",
     "El formulario a sido enviado con exito, alguna duda o modificacion, comunicarse con su Felipe lider , o sus Pastores"
@@ -235,13 +297,22 @@ router.post("/nuevos", isLoggedIn, async (req, res) => {
   res.redirect("/links/nuevos");
 });
 
-router.get("/editnuevos/:id", isLoggedIn, async (req, res) => {
+router.get("/editnuevos/:id", async (req, res) => {
   const { id } = req.params;
-  const nuevos = await pool.query("SELECT * FROM nuevos WHERE id = ?", [id]);
-  res.render("links/editnuevos", { nuevos: nuevos[0] });
+  const { data, error } = await supabase
+    .from('nuevos')
+    .select('*')
+    .eq('id', id);
+
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  res.render("links/editnuevos", { nuevos: data[0] });
 });
 
-router.post("/editnuevos/:id", isLoggedIn, async (req, res) => {
+router.post("/editnuevos/:id", async (req, res) => {
   const { id } = req.params;
   const {
     nombrelidernuevo,
@@ -252,41 +323,78 @@ router.post("/editnuevos/:id", isLoggedIn, async (req, res) => {
     edadnuevo,
     telefononuevo,
   } = req.body;
-  const newLink = {
-    nombrelidernuevo,
-    nombregruponuevo,
-    nombresnuevo,
-    apellidosnuevo,
-    direccionnuevo,
-    edadnuevo,
-    telefononuevo,
-  };
-  await pool.query("UPDATE nuevos set ? WHERE id ", [newLink, id]);
-  req - flash("success", "producto modificado");
+
+  const { error } = await supabase
+    .from('nuevos')
+    .update({ 
+      nombrelidernuevo,
+      nombregruponuevo,
+      nombresnuevo,
+      apellidosnuevo,
+      direccionnuevo,
+      edadnuevo,
+      telefononuevo,
+    })
+    .eq('id', id);
+
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  req.flash("success", "producto modificado");
   res.redirect("/links/");
 });
 
-router.get("/delete/:id", isLoggedIn, async (req, res) => {
+router.get("/delete/:id", async (req, res) => {
   const { id } = req.params;
 
-  await pool.query(`DELETE FROM planilla WHERE ID = ?`, [id]);
-    await pool.query(`DELETE FROM nuevos WHERE ID = ?`, [id]);
-    await pool.query(`DELETE FROM bautizos WHERE ID = ?`, [id]);
-    await pool.query(`DELETE FROM eventos WHERE ID = ?`, [id]);
-  
+  await supabase
+    .from('planilla')
+    .delete()
+    .eq('id', id);
+
+  await supabase
+    .from('nuevos')
+    .delete()
+    .eq('id', id);
+
+  await supabase
+    .from('bautizos')
+    .delete()
+    .eq('id', id);
+
+  await supabase
+    .from('eventos')
+    .delete()
+    .eq('id', id);
 
   res.redirect("/links/reportes");
 });
 
-
-
-
-router.get("/reportes", isLoggedIn, async (req, res) => {
+router.get("/reportes", async (req, res) => {
   try {
-    const planilla = await pool.query("SELECT * FROM planilla");
-    const bautizos = await pool.query("SELECT * FROM bautizos");
-    const nuevos = await pool.query("SELECT * FROM nuevos");
-    const eventos = await pool.query("SELECT * FROM eventos");
+    const { data: planilla, error: errorPlanilla } = await supabase
+      .from('planilla')
+      .select('*');
+
+    const { data: bautizos, error: errorBautizos } = await supabase
+      .from('bautizos')
+      .select('*');
+
+    const { data: nuevos, error: errorNuevos } = await supabase
+      .from('nuevos')
+      .select('*');
+
+    const { data: eventos, error: errorEventos } = await supabase
+      .from('eventos')
+      .select('*');
+
+    if (errorPlanilla || errorBautizos || errorNuevos || errorEventos) {
+      console.error(errorPlanilla, errorBautizos, errorNuevos, errorEventos);
+      res.status(500).send("Hubo un error al obtener los datos");
+      return;
+    }
 
     res.render("links/reportes", { planilla, bautizos, nuevos, eventos });
   } catch (error) {
@@ -321,33 +429,33 @@ router.get("/eventos", async (req, res) => {
   res.render("links/eventos");
 });
 
-router.get("/profile",isLoggedIn, async (req, res) => {
+router.get("/profile", async (req, res) => {
   res.render("links/profile");
 });
 
-router.get("/reportes",isLoggedIn, async (req, res) => {
+router.get("/reportes", async (req, res) => {
   res.render("links/reportes");
 });
 
-router.get("/bautizos",isLoggedIn, async (req, res) => {
+router.get("/bautizos", async (req, res) => {
   res.render("links/bautizos");
 });
 
 
-router.get("/nuevos",isLoggedIn, async (req, res) => {
+router.get("/nuevos", async (req, res) => {
   res.render("links/nuevos");
 });
 
-router.get("/editbautizos", isLoggedIn, async (req, res) => {
+router.get("/editbautizos",  async (req, res) => {
   res.render("links/editbautizos");
 });
 
 
-router.get("/creareventos",isLoggedIn, async (req, res) => {
+router.get("/creareventos", async (req, res) => {
   res.render("links/creareventos");
 });
 
-router.post("/eventos", isLoggedIn, async (req, res) => {
+router.post("/eventos", async (req, res) => {
   const {
     Dia,
     descripcion,
@@ -360,26 +468,37 @@ router.post("/eventos", isLoggedIn, async (req, res) => {
     descripcion,
     Fecha,
     Hora
-    
   };
 
-  await pool.query("INSERT INTO eventos set ?", [newLink]);
-  req.flash(
-    "success",
-    "El evento a sido creado"
-  );
+  const { data, error } = await supabase
+    .from('eventos')
+    .insert([newLink]);
+
+  if (error) {
+    req.flash("error", error.message);
+  } else {
+    req.flash("success", "El evento a sido creado");
+  }
+
   res.redirect("/links/creareventos");
 });
 
-
-router.get("/delete/:id", isLoggedIn, async (req, res) => {
+// Ruta GET para eliminar un evento
+router.get("/delete/:id", async (req, res) => {
   const { id } = req.params;
 
-    await pool.query(`DELETE FROM eventos WHERE ID = ?`, [id]);
-  
+  const { data, error } = await supabase
+    .from('eventos')
+    .delete()
+    .match({ ID: id });
+
+  if (error) {
+    req.flash("error", error.message);
+  }
 
   res.redirect("/links/eventos");
 });
+
 
 
 

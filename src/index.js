@@ -1,29 +1,20 @@
 const express = require("express");
 const morgan = require("morgan");
-const mysql = require("mysql");
 const multer = require("multer");
 const bodyParser = require("body-parser");
-const pg = require('pg');
-
-
-
-//plantilla,
 const exphbs = require("express-handlebars");
 const path = require("path");
 const flash = require("connect-flash");
 const session = require("express-session");
-const MySQLStore = require("express-mysql-session")(session);
 const passport = require("passport");
 const upload = multer({ dest: "uploads/" });
+const { createClient } = require("@supabase/supabase-js");
 
-const { database } = require("./keys");
-
-//inicicializaciones
+// Inicializaciones
 const app = express();
 require("./lib/passport");
 
-//configuraciones
-
+// Configuraciones
 app.set("port", process.env.PORT || 2000);
 app.set("views", path.join(__dirname, "views"));
 app.engine(
@@ -38,26 +29,26 @@ app.engine(
 );
 app.set("views engine", ".hbs");
 
-//funciones de petiicon
-app.use(
-  session({
-    secret: "centromysqlnodemysql",
-    resave: false,
-    saveUninitialized: false,
-    store: new MySQLStore(database),
-  })
-);
+// Conexión a Supabase
+const supabaseUrl = 'https://wrdalmrnoeslzthwqnuo.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyZGFsbXJub2VzbHp0aHdxbnVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDY2NjA2NzQsImV4cCI6MjAyMjIzNjY3NH0.06458Qm3WYUFqscMrkk2MNOcPGXsqjAkbSsv1lZbjok';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 app.use(flash());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(session({
+  secret: 'kLWQsZnYbRXeDF4u',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
-//variables globales
+// Variables globales
 app.use((req, res, next) => {
   app.locals.success = req.flash("success");
   app.locals.message = req.flash("message");
@@ -65,54 +56,19 @@ app.use((req, res, next) => {
   next();
 });
 
-//rutas
+// Rutas
 app.use(require("./routes"));
 app.use(require("./routes/authentication"));
 app.use("/links", require("./routes/links"));
 
-//public
+// Public
 app.use(express.static(path.join(__dirname, "public")));
 
-//inicio del servidor
+// Inicio del servidor
 app.listen(app.get("port"), (err, res) => {
   console.log("server on port", app.get("port"));
 });
 
 // Establecer el motor de plantillas
-app.set("view engine", "hbs");
-app.set("views", path.join(__dirname, "views"));
-
-const { Client } = require('pg');
-
-const { Pool } = require('pg');
-
-const pool = new Pool({
-  connectionString: 'postgres://centro:PW20xnB5uiCAzpSDRsHPhASL2DRkgEw5@dpg-cms6tiicn0vc73becmhg-a.oregon-postgres.render.com/centro', // Reemplaza esto con tu URL de conexión externa real
-});
-
-pool.connect((err, client, done) => {
-  if (err) {
-    console.error('Error de conexión', err.stack);
-  } else {
-    console.log('Conectado a PostgreSQL');
-    done(); // libera la conexión de vuelta al pool
-  }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.set("view engine", ".hbs"); 
 
