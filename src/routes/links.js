@@ -27,6 +27,7 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 
+
 router.get("/planilla", (req, res) => {
   res.render("links/planilla");
 });
@@ -448,6 +449,14 @@ router.get("/nuevos", async (req, res) => {
 
 router.get("/editbautizos",  async (req, res) => {
   res.render("links/editbautizos");
+});
+
+router.get("/signin",  async (req, res) => {
+  res.render("links/signin");
+});
+
+router.get("/signup",  async (req, res) => {
+  res.render("links/signup");
 });
 
 
