@@ -5,6 +5,11 @@ const multer = require("multer");
 const path = require("path");
 const app = express();
 const bodyParser = require("body-parser");
+app.use(express.urlencoded({ extended: true }));
+const { createClient } = require ('@supabase/supabase-js')
+
+const supabase = createClient('https://wrdalmrnoeslzthwqnuo.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyZGFsbXJub2VzbHp0aHdxbnVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDY2NjA2NzQsImV4cCI6MjAyMjIzNjY3NH0.06458Qm3WYUFqscMrkk2MNOcPGXsqjAkbSsv1lZbjok')
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -19,12 +24,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
-const { createClient } = require('@supabase/supabase-js')
-
-const supabaseUrl = 'https://wrdalmrnoeslzthwqnuo.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyZGFsbXJub2VzbHp0aHdxbnVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDY2NjA2NzQsImV4cCI6MjAyMjIzNjY3NH0.06458Qm3WYUFqscMrkk2MNOcPGXsqjAkbSsv1lZbjok'
-const supabase = createClient(supabaseUrl, supabaseKey)
 
 
 
@@ -373,36 +372,38 @@ router.get("/delete/:id", async (req, res) => {
   res.redirect("/links/reportes");
 });
 
-router.get("/reportes", async (req, res) => {
-  try {
-    const { data: planilla, error: errorPlanilla } = await supabase
-      .from('planilla')
-      .select('*');
+app.get('/reportes', async (req, res) => {
+  // Obtén los datos de la tabla 'planilla'
+  const { data: dataPlanilla, error: errorPlanilla } = await supabase
+    .from('planilla')
+    .select('*')
 
-    const { data: bautizos, error: errorBautizos } = await supabase
-      .from('bautizos')
-      .select('*');
+  // Obtén los datos de la tabla 'bautizos'
+  const { data: dataBautizos, error: errorBautizos } = await supabase
+    .from('bautizos')
+    .select('*')
 
-    const { data: nuevos, error: errorNuevos } = await supabase
-      .from('nuevos')
-      .select('*');
+  // Obtén los datos de la tabla 'nuevos'
+  const { data: dataNuevos, error: errorNuevos } = await supabase
+    .from('nuevos')
+    .select('*')
 
-    const { data: eventos, error: errorEventos } = await supabase
-      .from('eventos')
-      .select('*');
+  // Obtén los datos de la tabla 'eventos'
+  const { data: dataEventos, error: errorEventos } = await supabase
+    .from('eventos')
+    .select('*')
 
-    if (errorPlanilla || errorBautizos || errorNuevos || errorEventos) {
-      console.error(errorPlanilla, errorBautizos, errorNuevos, errorEventos);
-      res.status(500).send("Hubo un error al obtener los datos");
-      return;
-    }
-
-    res.render("links/reportes", { planilla, bautizos, nuevos, eventos });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Hubo un error al obtener los datos");
-  }
+  // Renderiza tu archivo '.hbs' pasando los datos obtenidos
+  res.render("links/reportes", { 
+    planilla: dataPlanilla, 
+    bautizos: dataBautizos, 
+    nuevos: dataNuevos, 
+    eventos: dataEventos 
+  });
 });
+
+
+ 
 
 // rutas
 
@@ -430,9 +431,7 @@ router.get("/eventos", async (req, res) => {
   res.render("links/eventos");
 });
 
-router.get("/profile", async (req, res) => {
-  res.render("links/profile");
-});
+
 
 router.get("/reportes", async (req, res) => {
   res.render("links/reportes");
@@ -451,8 +450,8 @@ router.get("/editbautizos",  async (req, res) => {
   res.render("links/editbautizos");
 });
 
-router.get("/signin",  async (req, res) => {
-  res.render("links/signin");
+router.get("/profile",  async (req, res) => {
+  res.render("links/profile");
 });
 
 router.get("/signup",  async (req, res) => {

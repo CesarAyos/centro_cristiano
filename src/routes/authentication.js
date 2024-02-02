@@ -1,36 +1,53 @@
-const { createClient } = require("@supabase/supabase-js");
 const express = require('express');
 const router = express.Router();
+const { createClient } = require('@supabase/supabase-js')
 
+const supabaseUrl = 'https://wrdalmrnoeslzthwqnuo.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyZGFsbXJub2VzbHp0aHdxbnVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDY2NjA2NzQsImV4cCI6MjAyMjIzNjY3NH0.06458Qm3WYUFqscMrkk2MNOcPGXsqjAkbSsv1lZbjok'
+const supabase = createClient(supabaseUrl, supabaseKey)
 
-const supabaseUrl = 'https://wrdalmrnoeslzthwqnuo.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyZGFsbXJub2VzbHp0aHdxbnVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDY2NjA2NzQsImV4cCI6MjAyMjIzNjY3NH0.06458Qm3WYUFqscMrkk2MNOcPGXsqjAkbSsv1lZbjok';
-const supabase = createClient(supabaseUrl, supabaseKey);
+// SIGNUP
+router.get('/signup', (req, res) => {
+  res.render('auth/signup');
+});
 
-async function signIn(email, password) {
-  const { user, session, error } = await supabase.auth.signIn({
-    email,
-    password,
+router.post('/signup', async (req, res) => {
+  const { user, error } = await supabase.auth.signUp({
+    email: req.body.email,
+    password: req.body.password,
   });
 
-  if (error) {
-    console.error("Error signing in: ", error.message);
-  } else {
-    console.log("User signed in: ", user);
-  }
-}
+  if (error) return res.redirect('/signup');
+  return res.redirect("links/profile");
+});
 
-async function signUp(email, password) {
-  const { user, session, error } = await supabase.auth.signUp({
-    email,
-    password,
+// SIGNIN
+router.get('/signin', (req, res) => {
+  res.render('auth/signin');
+});
+
+router.post('/signin', async (req, res) => {
+  const { user, error } = await supabase.auth.signInWithPassword({
+    email: req.body.email,
+    password: req.body.password,
   });
 
-  if (error) {
-    console.error("Error signing up: ", error.message);
-  } else {
-    console.log("User signed up: ", user);
-  }
-}
+  if (error) return res.redirect('/signin');
+  return res.redirect("links/profile");
+});
+
+router.get("profile", async (req, res) => {
+  const { data: session, error } = await supabase.auth.getSession();
+
+  if (!session) return res.redirect('/signin');
+  return res.render('"links/profile"');
+});
+
+router.get("/logout", async (req, res) => {
+  const { error } = await supabase.auth.signOut();
+
+  if (error) return next(error);
+  return res.redirect("/signin");
+});
 
 module.exports = router;

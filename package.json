@@ -30,6 +30,7 @@
     "pdfkit": "^0.14.0",
     "pg": "^8.11.3",
     "postgres": "^3.4.3",
+    "readdirp": "^3.6.0",
     "timeago.js": "^4.0.2"
   },
   "devDependencies": {
