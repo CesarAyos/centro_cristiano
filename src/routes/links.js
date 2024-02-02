@@ -402,6 +402,16 @@ app.get('/reportes', async (req, res) => {
   });
 });
 
+router.get('/', (req, res) => {
+  let user = req.session.user; 
+  res.render('index', { user: user }); 
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy(); 
+  res.redirect('/'); 
+});
+
 
  
 
