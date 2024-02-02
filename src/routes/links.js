@@ -372,7 +372,7 @@ router.get("/delete/:id", async (req, res) => {
   res.redirect("/links/reportes");
 });
 
-app.get('/reportes', async (req, res) => {
+router.get('/reportes', async (req, res) => {
   // Obtén los datos de la tabla 'planilla'
   const { data: dataPlanilla, error: errorPlanilla } = await supabase
     .from('planilla')
@@ -382,6 +382,8 @@ app.get('/reportes', async (req, res) => {
   const { data: dataBautizos, error: errorBautizos } = await supabase
     .from('bautizos')
     .select('*')
+
+
 
   // Obtén los datos de la tabla 'nuevos'
   const { data: dataNuevos, error: errorNuevos } = await supabase
