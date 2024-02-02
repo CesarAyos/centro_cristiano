@@ -8,13 +8,19 @@
         <img src="/img/logo.png" class="img-fluid rounded-start" alt="log" />
       </div>
       <div class="col-md-6">
-        <div class="card-body">
+        <div class="card-body ">
           <form action="/signin" method="post">
-            <label class="form-contro" for="email">Correo electrónico:</label><br>
+          <div >
+            <label  for="email">Correo electrónico:</label><br>
             <input type="email" id="email" name="email"><br>
-            <label for="password">Contraseña:</label><br>
+          </div>
+          <div>
+            <label class=" m-2 " for="password">Contraseña:</label><br>
             <input type="password" id="password" name="password"><br>
-            <input type="submit" value="Iniciar sesión">
+          </div>  
+            <div class="d-flex justify-content-center m-4"> 
+            <input class="" type="submit" value="Iniciar sesión">
+            </div>
           </form>
         </div>
       </div>
