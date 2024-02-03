@@ -99,7 +99,7 @@ router.post("/planilla",  async (req, res) => {
   }
 });
 
-router.get("/", isLoggedIn,  async (req, res) => {
+router.get("/",isLoggedIn,  async (req, res) => {
   const { data, error } = await supabase
     .from('planilla')
     .select('*');
@@ -173,7 +173,7 @@ router.post("/edit/:id",  async (req, res) => {
 
 // bautizos
 
-router.post("/bautizos",isLoggedIn, async (req, res) => {
+router.post("/bautizos", async (req, res) => {
   const {
     nombrelider,
     nombregrupo,
@@ -299,7 +299,7 @@ router.post("/nuevos", async (req, res) => {
   res.redirect("/links/nuevos");
 });
 
-router.get("/editnuevos/:id", async (req, res) => {
+router.get("/editnuevos/:id",isLoggedIn, async (req, res) => {
   const { id } = req.params;
   const { data, error } = await supabase
     .from('nuevos')
@@ -406,7 +406,7 @@ router.get('/reportes',isLoggedIn, async (req, res) => {
   });
 });
 
-router.get('/', (req, res) => {
+router.get('/',isLoggedIn, (req, res) => {
   let user = req.session.user; 
   res.render('index', { user: user }); 
 });
@@ -464,7 +464,7 @@ router.get("/editbautizos",isLoggedIn,  async (req, res) => {
   res.render("links/editbautizos");
 });
 
-router.get("/profile",isLoggedIn,  async (req, res) => {
+router.get("/profile",  async (req, res) => {
   res.render("links/profile");
 });
 
@@ -477,7 +477,7 @@ router.get("/creareventos",isLoggedIn, async (req, res) => {
   res.render("links/creareventos");
 });
 
-router.post("/eventos",isLoggedIn, async (req, res) => {
+router.post("/eventos", async (req, res) => {
   const {
     Dia,
     descripcion,
