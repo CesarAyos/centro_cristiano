@@ -25,9 +25,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+const { isLoggedIn } = require("../lib/auth");
 
 
-router.get("/planilla", (req, res) => {
+
+router.get("/planilla",isLoggedIn, (req, res) => {
   res.render("links/planilla");
 });
 
@@ -97,7 +99,7 @@ router.post("/planilla",  async (req, res) => {
   }
 });
 
-router.get("/",  async (req, res) => {
+router.get("/", isLoggedIn,  async (req, res) => {
   const { data, error } = await supabase
     .from('planilla')
     .select('*');
@@ -109,7 +111,7 @@ router.get("/",  async (req, res) => {
   }
 });
 
-router.get("/editplanilla/:id",  async (req, res) => {
+router.get("/editplanilla/:id",isLoggedIn,  async (req, res) => {
   const { id } = req.params;
   const { data, error } = await supabase
     .from('planilla')
@@ -171,7 +173,7 @@ router.post("/edit/:id",  async (req, res) => {
 
 // bautizos
 
-router.post("/bautizos", async (req, res) => {
+router.post("/bautizos",isLoggedIn, async (req, res) => {
   const {
     nombrelider,
     nombregrupo,
@@ -208,7 +210,7 @@ router.post("/bautizos", async (req, res) => {
   res.redirect("/links/bautizos");
 });
 
-router.get("/editbautizos/:id", async (req, res) => {
+router.get("/editbautizos/:id",isLoggedIn, async (req, res) => {
   const { id } = req.params;
   const { data, error } = await supabase
     .from('bautizos')
@@ -346,7 +348,7 @@ router.post("/editnuevos/:id", async (req, res) => {
   res.redirect("/links/");
 });
 
-router.get("/delete/:id", async (req, res) => {
+router.get("/delete/:id",isLoggedIn, async (req, res) => {
   const { id } = req.params;
 
   await supabase
@@ -372,7 +374,7 @@ router.get("/delete/:id", async (req, res) => {
   res.redirect("/links/reportes");
 });
 
-router.get('/reportes', async (req, res) => {
+router.get('/reportes',isLoggedIn, async (req, res) => {
   // Obtén los datos de la tabla 'planilla'
   const { data: dataPlanilla, error: errorPlanilla } = await supabase
     .from('planilla')
@@ -439,30 +441,30 @@ router.get("/donaciones", async (req, res) => {
   res.render("links/donaciones");
 });
 
-router.get("/eventos", async (req, res) => {
+router.get("/eventos",isLoggedIn, async (req, res) => {
   res.render("links/eventos");
 });
 
 
 
-router.get("/reportes", async (req, res) => {
+router.get("/reportes",isLoggedIn, async (req, res) => {
   res.render("links/reportes");
 });
 
-router.get("/bautizos", async (req, res) => {
+router.get("/bautizos",isLoggedIn, async (req, res) => {
   res.render("links/bautizos");
 });
 
 
-router.get("/nuevos", async (req, res) => {
+router.get("/nuevos",isLoggedIn, async (req, res) => {
   res.render("links/nuevos");
 });
 
-router.get("/editbautizos",  async (req, res) => {
+router.get("/editbautizos",isLoggedIn,  async (req, res) => {
   res.render("links/editbautizos");
 });
 
-router.get("/profile",  async (req, res) => {
+router.get("/profile",isLoggedIn,  async (req, res) => {
   res.render("links/profile");
 });
 
@@ -471,11 +473,11 @@ router.get("/signup",  async (req, res) => {
 });
 
 
-router.get("/creareventos", async (req, res) => {
+router.get("/creareventos",isLoggedIn, async (req, res) => {
   res.render("links/creareventos");
 });
 
-router.post("/eventos", async (req, res) => {
+router.post("/eventos",isLoggedIn, async (req, res) => {
   const {
     Dia,
     descripcion,
@@ -504,7 +506,7 @@ router.post("/eventos", async (req, res) => {
 });
 
 // Ruta GET para eliminar un evento
-router.get("/delete/:id", async (req, res) => {
+router.get("/delete/:id",isLoggedIn, async (req, res) => {
   const { id } = req.params;
 
   const { data, error } = await supabase
