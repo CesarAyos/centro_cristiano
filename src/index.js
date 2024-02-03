@@ -10,6 +10,9 @@ const passport = require("passport");
 const upload = multer({ dest: "uploads/" });
 const { createClient } = require("@supabase/supabase-js");
 
+
+
+
 // Inicializaciones
 const app = express();
 require("./lib/passport");
