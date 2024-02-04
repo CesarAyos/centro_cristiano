@@ -9,6 +9,9 @@ const session = require("cookie-session");
 const passport = require("passport");
 const upload = multer({ dest: "uploads/" });
 const { createClient } = require("@supabase/supabase-js");
+const cookieParser = require('cookie-parser');
+
+
 
 
 
@@ -60,6 +63,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cookieParser());
 
 // Variables globales
 app.use((req, res, next) => {

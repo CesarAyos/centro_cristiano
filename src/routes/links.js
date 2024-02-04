@@ -414,10 +414,7 @@ router.get('/', (req, res) => {
   res.render('index', { user: user }); 
 });
 
-app.get('/logout', (req, res) => {
-  req.session.destroy(); 
-  res.redirect('/'); 
-});
+
 
 
  
@@ -522,6 +519,18 @@ router.get("/delete/:id", async (req, res) => {
 
   res.redirect("/links/eventos");
 });
+
+
+router.post('/signin', (req, res) => {
+  req.session.destroy(err => {
+    if(err) {
+      return res.redirect('/signin');
+    }
+    res.clearCookie('sid');
+    res.redirect('/login');
+  })
+});
+
 
 
 

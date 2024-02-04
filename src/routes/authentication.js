@@ -43,14 +43,7 @@ router.get("profile", async (req, res) => {
   return res.render('"links/profile"');
 });
 
-router.get("/logout", async (req, res) => {
-  const { error } = await supabase.auth.signOut();
-
-  if (error) return next(error);
-  return res.redirect("/signin");
-});
 
 
+module.exports =  router ;
 
-
-module.exports = router;
