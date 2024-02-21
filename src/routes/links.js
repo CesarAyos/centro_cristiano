@@ -1,35 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const Handlebars = require("handlebars");
-const multer = require("multer");
-const path = require("path");
-const app = express();
-const bodyParser = require("body-parser");
-app.use(express.urlencoded({ extended: true }));
-const { createClient } = require ('@supabase/supabase-js')
-const cookieSession = require('cookie-session')
 
-const supabase = createClient('https://wrdalmrnoeslzthwqnuo.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyZGFsbXJub2VzbHp0aHdxbnVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDY2NjA2NzQsImV4cCI6MjAyMjIzNjY3NH0.06458Qm3WYUFqscMrkk2MNOcPGXsqjAkbSsv1lZbjok')
+const { createClient } = require ('@supabase/supabase-js');
 
+require('dotenv').config();
 
-const storage = multer.diskStorage({
-  destination: function (req, file, callback) {
-    callback(null, "./uploads");
-  },
-  filename: function (req, file, callback) {
-    callback(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
-
-const upload = multer({ storage: storage });
-
-const { isLoggedIn } = require("../lib/auth");
-
-
-
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 
 router.get("/planilla", (req, res) => {

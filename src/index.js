@@ -5,20 +5,15 @@ const bodyParser = require("body-parser");
 const exphbs = require("express-handlebars");
 const path = require("path");
 const flash = require("connect-flash");
-const session = require("cookie-session");
-const passport = require("passport");
+const cookieSession = require("cookie-session");
+
 const upload = multer({ dest: "uploads/" });
 const { createClient } = require("@supabase/supabase-js");
 const cookieParser = require('cookie-parser');
 
 
-
-
-
-
 // Inicializaciones
 const app = express();
-require("./lib/passport");
 
 // Configuraciones
 app.set("port", process.env.PORT || 2000);
@@ -30,7 +25,6 @@ app.engine(
     layoutsDir: path.join(app.get("views"), "layouts"),
     partialsDir: path.join(app.get("views"), "partials"),
     extname: ".hbs",
-    helpers: require("./lib/handlebars"),
   })
 );
 app.set("views engine", ".hbs");
@@ -48,6 +42,11 @@ app.post('/login', async (req, res) => {
   return res.status(200).send({ user });
 });
 
+app.use(cookieSession({
+  name: 'ayos007@gmail.com',
+  keys: ['051192Ayo$'],
+}));
+
 
 
 app.use(flash());
@@ -56,13 +55,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(session({
-  secret: 'kLWQsZnYbRXeDF4u',
-  resave: false,
-  saveUninitialized: false
-}));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(cookieParser());
 
 // Variables globales
