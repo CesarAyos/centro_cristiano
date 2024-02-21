@@ -1,0 +1,125 @@
+  <a href="https://web.whatsapp.com/" class="btn-wsp" target="_blank">
+  <i class="fa-brands fa-whatsapp"></i>
+</a>  
+</form>
+
+<div class="card">
+  <div class="card-header">
+    Reportes de Grupos Biblicos
+  </div>
+  <div class="row">
+    {{#each planilla}}
+    <div class="col-md-2 m-2" style="border: solid;">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><p>SUPERVISOR DE RED:</p>{{SUPERVISOR_DE_RED}}</li>
+    <li class="list-group-item"><p >FELIPE DE RED:</p>{{FELIPE_DE_RED}}</li>
+    <li class="list-group-item"><p >FELIPE LIDER:</p>{{FELIPE_LIDER}}</li>
+    <li class="list-group-item"><p >Asistencia vea:</p>{{Asistencia_vea}}</li>
+    <li class="list-group-item"><p>Asistentes:</p>{{asistentes}}</li>
+    <li class="list-group-item"><p >Felipes:</p>{{Felipes}}</li>
+    <li class="list-group-item"><p >Etiopes:</p>{{Etiopes}}</li>
+    <li class="list-group-item"><p >Novedades:</p>{{novedades}}</li>
+    <li class="list-group-item"><p >Amigos:</p>{{Amigos}}</li>
+    <li class="list-group-item"><p >Niños:</p>{{Ninos}}</li>
+    <li class="list-group-item"><p >Ausentes:</p>{{Ausentes}}</li>
+    <li class="list-group-item"><p >Convertidos adultos:</p>{{Convertidos_adultos}}</li>
+    <li class="list-group-item"><p >Convertidos niños:</p>{{Convertidos_ninos}}</li>
+    <li class="list-group-item"><p >Reconciliados:</p>{{Reconciliados}}</li>
+    <li class="list-group-item"><p >Diezmos:</p>{{Diezmos}}</li>
+    <li class="list-group-item"><p >Ofrendas:</p>{{Ofrendas}}</li>
+    <li class="list-group-item"><p >Total financiero:</p>{{Total_financiero}}</li>
+    <li class="list-group-item"><p >Participacion Mision Amigo:</p>{{Participacion_Mision_Amigo}}</li>
+    <li class="list-group-item"><p >Participacion Consolidacion:</p>{{Participacion_Consolidacion}}</li>
+    <li class="list-group-item"><p >Participacion Discipulado 1:</p>{{Participacion_Discipulado_1}}</li>
+    <li class="list-group-item"><p >Asistencia a la Escuela de Liderazgo:</p>{{Asistencia_a_la_Escuela_de_Liderazgo}}</li>
+    <li class="list-group-item"><p >Asistencia de Amigos:</p>{{Asistencia_de_Amigos}}</li>
+    <li class="list-group-item"><p >Asistencia de Niños:</p>{{Ninos}}</li>
+    <li class="list-group-item"><p>{{Ninos}}</p></li>
+    <li class="list-group-item"><p >{{created_at}}</p></li>
+     <li class="btn btn-success m-2">
+                <a
+                  href="/links/delete/{{id}}"
+                  class="text-light text-decoration-none"
+                >Eliminar</a></li>
+  </ul>
+   </div>
+    {{/each}}
+  </div>
+</div>
+
+
+<form action="/links/profile" class="inicio">
+  <button class="fa-solid fa-arrow-left etc"></button>
+</form>
+
+
+
+<div class="card">
+  <div class="card-header">
+    Reportes pero para Bautizos
+  </div>
+  <div class="row">
+    {{#each bautizos}}
+    <div class="col-md-2 m-2" style="border: solid;">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><p >Nombre del lider:</p>{{nombrelider}}</li>
+    <li class="list-group-item"><p >Grupo Biblico al que asiste:</p>{{nombregrupo}}</li>
+    <li class="list-group-item"><p >Nombre de la persona a Bauitizar:</p>{{nombres}}</li>
+    <li class="list-group-item"><p >Apellidos de la persona a Bautizar:</p>{{apellidos}}</li>
+    <li class="list-group-item"><p >Direccion donde vive:</p>{{direccion}}</li>
+    <li class="list-group-item"><p >Edad:</p>{{edad}}</li>
+    <li class="list-group-item"><p >Numero de telefono:</p>{{telefono}}</li>
+    <li class="list-group-item">{{created_at}}</li>
+     <li class="btn btn-success m-2">
+                <a
+                  href="/links/delete/{{id}}"
+                  class="text-light text-decoration-none"
+                >Eliminar</a></li>
+  </ul>
+   </div>
+   {{else}}
+            <div class="col-md-4 mx-auto">
+                <div class="card car-body text-center">
+                    <p>No Tienes Eventos Creados</p>
+                </div>
+            </div>
+    {{/each}}
+  </div>
+</div>
+
+
+
+
+{{!-- nuevos --}}
+<div class="card">
+  <div class="card-header">
+    Reportes Personas Nuevas
+  </div>
+  <div class="row">
+    {{#each nuevos}}
+    <div class="col-md-2 m-2" style="border: solid;">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><p >Nombre del lider:</p>{{nombrelidernuevo}}</li>
+    <li class="list-group-item"><p >Grupo Biblico al que asiste:</p>{{nombregruponuevo}}</li>
+    <li class="list-group-item"><p >Nombre del amigo:</p>{{nombresnuevo}}</li>
+    <li class="list-group-item"><p >Apellidos del amigo:</p>{{apellidosnuevo}}</li>
+    <li class="list-group-item"><p >Direccion donde vive:</p>{{direccionnuevo}}</li>
+    <li class="list-group-item"><p >Edad:</p>{{edadnuevo}}</li>
+    <li class="list-group-item"><p >Numero de telefono:</p>{{telefononuevo}}</li>
+    <li class="list-group-item">{{created_at}}</li>
+     <li class="btn btn-success m-2">
+                <a
+                  href="/links/delete/{{id}}"
+                  class="text-light text-decoration-none"
+                >Eliminar</a></li>
+  </ul>
+   </div>
+   {{else}}
+            <div class="col-md-4 mx-auto">
+                <div class="card car-body text-center">
+                    <p>No Tienes Eventos Creados</p>
+                </div>
+            </div>
+    {{/each}}
+  </div>
+</div>

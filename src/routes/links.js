@@ -393,6 +393,42 @@ router.get('/', (req, res) => {
 });
 
 
+router.get('/pastores', async (req, res) => {
+  // Obtén los datos de la tabla 'planilla'
+  const { data: dataPlanilla, error: errorPlanilla } = await supabase
+    .from('planilla')
+    .select('*')
+
+  // Obtén los datos de la tabla 'bautizos'
+  const { data: dataBautizos, error: errorBautizos } = await supabase
+    .from('bautizos')
+    .select('*')
+
+
+
+  // Obtén los datos de la tabla 'nuevos'
+  const { data: dataNuevos, error: errorNuevos } = await supabase
+    .from('nuevos')
+    .select('*')
+
+  // Obtén los datos de la tabla 'eventos'
+  const { data: dataEventos, error: errorEventos } = await supabase
+    .from('eventos')
+    .select('*')
+
+  // Renderiza tu archivo '.hbs' pasando los datos obtenidos
+  res.render("links/pastores", { 
+    planilla: dataPlanilla, 
+    bautizos: dataBautizos, 
+    nuevos: dataNuevos, 
+    eventos: dataEventos 
+  });
+});
+
+
+
+
+
 
 
  
@@ -454,6 +490,10 @@ router.get("/creareventos", async (req, res) => {
   res.render("links/creareventos");
 });
 
+router.get("/pastores", async (req, res) => {
+  res.render("links/pastores");
+});
+
 router.post("/eventos", async (req, res) => {
   const {
     Dia,
@@ -488,7 +528,7 @@ router.get("/delete/:id", async (req, res) => {
 
   const { data, error } = await supabase
     .from('eventos')
-    .delete()
+    . te()
     .match({ ID: id });
 
   if (error) {
@@ -496,17 +536,6 @@ router.get("/delete/:id", async (req, res) => {
   }
 
   res.redirect("/links/eventos");
-});
-
-
-router.post('/signin', (req, res) => {
-  req.session.destroy(err => {
-    if(err) {
-      return res.redirect('/signin');
-    }
-    res.clearCookie('sid');
-    res.redirect('/login');
-  })
 });
 
 
