@@ -1,14 +1,10 @@
 const express = require("express");
 const morgan = require("morgan");
-const multer = require("multer");
 const bodyParser = require("body-parser");
 const exphbs = require("express-handlebars");
 const path = require("path");
 const flash = require("connect-flash");
 const cookieSession = require("cookie-session");
-
-const upload = multer({ dest: "uploads/" });
-const { createClient } = require("@supabase/supabase-js");
 const cookieParser = require('cookie-parser');
 
 
@@ -29,11 +25,6 @@ app.engine(
 );
 app.set("views engine", ".hbs");
 
-// Conexión a Supabase
-const supabaseUrl = 'https://wrdalmrnoeslzthwqnuo.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyZGFsbXJub2VzbHp0aHdxbnVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDY2NjA2NzQsImV4cCI6MjAyMjIzNjY3NH0.06458Qm3WYUFqscMrkk2MNOcPGXsqjAkbSsv1lZbjok';
-const supabase = createClient(supabaseUrl, supabaseKey);
-
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   let { user, error } = await supabase.auth.signIn({ email, password });
@@ -42,13 +33,6 @@ app.post('/login', async (req, res) => {
   return res.status(200).send({ user });
 });
 
-app.use(cookieSession({
-  name: 'ayos007@gmail.com',
-  keys: ['051192Ayo$'],
-}));
-
-
-
 app.use(flash());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
@@ -56,6 +40,11 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(cookieSession({
+  name: 'session', 
+  keys: ['clave_secreta'],
+  maxAge: 120000, 
+}));
 
 // Variables globales
 app.use((req, res, next) => {

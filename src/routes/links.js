@@ -10,7 +10,8 @@ const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 
-router.get("/planilla", (req, res) => {
+
+router.get("/planilla",ensureAuthenticated, (req, res) => {
   res.render("links/planilla");
 });
 
@@ -80,7 +81,7 @@ router.post("/planilla",  async (req, res) => {
   }
 });
 
-router.get("/",  async (req, res) => {
+router.get("/",ensureAuthenticated,  async (req, res) => {
   const { data, error } = await supabase
     .from('planilla')
     .select('*');
@@ -92,7 +93,7 @@ router.get("/",  async (req, res) => {
   }
 });
 
-router.get("/editplanilla/:id",  async (req, res) => {
+router.get("/editplanilla/:id",ensureAuthenticated,  async (req, res) => {
   const { id } = req.params;
   const { data, error } = await supabase
     .from('planilla')
@@ -355,7 +356,7 @@ router.get("/delete/:id", async (req, res) => {
   res.redirect("/links/reportes");
 });
 
-router.get('/reportes', async (req, res) => {
+router.get('/reportes',ensureAuthenticated, async (req, res) => {
   // Obtén los datos de la tabla 'planilla'
   const { data: dataPlanilla, error: errorPlanilla } = await supabase
     .from('planilla')
@@ -393,7 +394,7 @@ router.get('/', (req, res) => {
 });
 
 
-router.get('/pastores', async (req, res) => {
+router.get('/pastores',ensureAuthenticated, async (req, res) => {
   // Obtén los datos de la tabla 'planilla'
   const { data: dataPlanilla, error: errorPlanilla } = await supabase
     .from('planilla')
@@ -426,13 +427,6 @@ router.get('/pastores', async (req, res) => {
 });
 
 
-
-
-
-
-
- 
-
 // rutas
 
 router.get("/Ubicanos", async (req, res) => {
@@ -455,30 +449,30 @@ router.get("/donaciones", async (req, res) => {
   res.render("links/donaciones");
 });
 
-router.get("/eventos", async (req, res) => {
+router.get("/eventos",ensureAuthenticated, async (req, res) => {
   res.render("links/eventos");
 });
 
 
 
-router.get("/reportes", async (req, res) => {
+router.get("/reportes",ensureAuthenticated, async (req, res) => {
   res.render("links/reportes");
 });
 
-router.get("/bautizos", async (req, res) => {
+router.get("/bautizos",ensureAuthenticated, async (req, res) => {
   res.render("links/bautizos");
 });
 
 
-router.get("/nuevos", async (req, res) => {
+router.get("/nuevos",ensureAuthenticated, async (req, res) => {
   res.render("links/nuevos");
 });
 
-router.get("/editbautizos",  async (req, res) => {
+router.get("/editbautizos",ensureAuthenticated,  async (req, res) => {
   res.render("links/editbautizos");
 });
 
-router.get("/profile",  async (req, res) => {
+router.get("/profile",ensureAuthenticated,  async (req, res) => {
   res.render("links/profile");
 });
 
@@ -486,11 +480,11 @@ router.get("/signup",  async (req, res) => {
   res.render("links/signup");
 });
 
-router.get("/creareventos", async (req, res) => {
+router.get("/creareventos",ensureAuthenticated, async (req, res) => {
   res.render("links/creareventos");
 });
 
-router.get("/pastores", async (req, res) => {
+router.get("/pastores",ensureAuthenticated, async (req, res) => {
   res.render("links/pastores");
 });
 
@@ -538,6 +532,13 @@ router.get("/delete/:id", async (req, res) => {
   res.redirect("/links/eventos");
 });
 
+function ensureAuthenticated(req, res, next) {
+  if (req.session.user && req.session.user.isAuthenticated) {
+    return next();
+  } else {
+    return res.redirect('/signin');
+  }
+}
 
 
 
