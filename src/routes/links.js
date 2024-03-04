@@ -11,7 +11,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 
 
-router.get("/planilla",ensureAuthenticated, (req, res) => {
+router.get("/planilla", (req, res) => {
   res.render("links/planilla");
 });
 
@@ -23,6 +23,7 @@ router.post("/planilla",  async (req, res) => {
     FELIPE_DE_RED,
     FELIPE_LIDER,
     Asistencia_vea,
+    asistentes,
     Felipes,
     Etiopes,
     Amigos,
@@ -31,6 +32,7 @@ router.post("/planilla",  async (req, res) => {
     Convertidos_adultos,
     Convertidos_ninos,
     Reconciliados,
+    novedades,
     Diezmos,
     Ofrendas,
     Total_financiero,
@@ -40,6 +42,7 @@ router.post("/planilla",  async (req, res) => {
     Asistencia_a_la_Escuela_de_Liderazgo,
     Asistencia_de_Amigos,
     Asistencia_de_Ninos,
+    created_at,
   } = req.body;
 
   const { error } = await supabase
@@ -51,11 +54,13 @@ router.post("/planilla",  async (req, res) => {
       FELIPE_DE_RED,
       FELIPE_LIDER,
       Asistencia_vea,
+      asistentes,
       Felipes,
       Etiopes,
       Amigos,
       Ninos,
       Ausentes,
+      novedades,
       Convertidos_adultos,
       Convertidos_ninos,
       Reconciliados,
@@ -68,6 +73,7 @@ router.post("/planilla",  async (req, res) => {
       Asistencia_a_la_Escuela_de_Liderazgo,
       Asistencia_de_Amigos,
       Asistencia_de_Ninos,
+      created_at,
     }]);
 
   if (error) {
@@ -464,11 +470,11 @@ router.get("/bautizos",ensureAuthenticated, async (req, res) => {
 });
 
 
-router.get("/nuevos",ensureAuthenticated, async (req, res) => {
+router.get("/nuevos", async (req, res) => {
   res.render("links/nuevos");
 });
 
-router.get("/editbautizos",ensureAuthenticated,  async (req, res) => {
+router.get("/editbautizos",  async (req, res) => {
   res.render("links/editbautizos");
 });
 
@@ -480,7 +486,7 @@ router.get("/signup",  async (req, res) => {
   res.render("links/signup");
 });
 
-router.get("/creareventos",ensureAuthenticated, async (req, res) => {
+router.get("/creareventos", async (req, res) => {
   res.render("links/creareventos");
 });
 

@@ -9,108 +9,108 @@
 <div class="container p-4">
   <div class="row">
     {{#each planilla}}
-  <div class="container d-flex justify-content-center mt-3 mb-3">
-    <div
-      class="card bg-body-secondary"
-      style="width: 70rem; box-shadow: 10px 10px 5px 0px rgba(54,130,123,0.75);">
-      <div class="d-flex justify-content-center m-2">
+<div class="card bg-body-secondary col-md-3 d-flex justify-content-center m-4 p-2 " style="box-shadow: 10px 10px 5px 0px rgba(54,130,123,0.75);">
+        <div class="d-flex justify-content-center m-2">
         <img src="/img/logo.png" alt="logo" class="logo-form" />
       </div>
       <h2 class="d-flex justify-content-center m-2">REPORTES DE GRUPOS BIBLICOS</h2>
       <div class="card-body" style="background-color: rgb(0, 109, 98);">
         <form class="row g-3">
           <div class="form-group col-md-6">
-            <label class="form-label h3"><h4 class="text-white">Pastor Supervisor:</h4>{{PASTOR_SUPERVISOR}}</label>
+            <label class="form-label "><h6 class="text-white">Pastor Supervisor:</h6>{{PASTOR_SUPERVISOR}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label class="form-label h3"><h4 class="text-white">Coordinador Dpto:</h4>{{COORDINADOR_DPTO}}</label>
+            <label class="form-label "><h6 class="text-white">Coordinador Dpto:</h6>{{COORDINADOR_DPTO}}</label>
           </div>
           <div class="form-group col-6">
-            <label class="form-label h3"><h4 class="text-white">SUPERVISOR DE RED:</h4>{{SUPERVISOR_DE_RED}}</label>
+            <label class="form-label "><h6 class="text-white">SUPERVISOR DE RED:</h6>{{SUPERVISOR_DE_RED}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label class="form-label h3"><h4 class="text-white">FELIPE DE RED:</h4>{{FELIPE_DE_RED}}</label>
+            <label class="form-label "><h6 class="text-white">FELIPE DE RED:</h6>{{FELIPE_DE_RED}}</label>
           </div>
 
-          <div class="form-group col-md-12">
-            <label class="form-label h3"><h4 class="text-white">FELIPE LIDER:</h4>{{FELIPE_LIDER}}</label>
+          <div class="form-group col-md-4">
+            <label class="form-label "><h6 class="text-white">FELIPE LIDER:</h6>{{FELIPE_LIDER}}</label>
+          </div>
+          <div class="form-group col-4">
+            <label class="form-label "><h6 class="text-white">Asistencia vea:</h6>{{Asistencia_vea}}</label>
+          </div>
+          <div class="form-group col-4">
+            <label class="form-label "><h6 class="text-white">Asistentes:</h6>{{asistentes}}</label>
           </div>
           <div class="form-group col-3">
-            <label class="form-label h3"><h4 class="text-white">Asistencia vea:</h4>{{Asistencia_vea}}</label>
+            <label class="form-label "><h6 class="text-white">Felipes:</h6>{{Felipes}}</label>
           </div>
           <div class="form-group col-3">
-            <label class="form-label h3"><h4 class="text-white">Asistentes:</h4>{{asistentes}}</label>
-          </div>
-          <div class="form-group col-3">
-            <label class="form-label h3"><h4 class="text-white">Felipes:</h4>{{Felipes}}</label>
-          </div>
-          <div class="form-group col-3">
-            <label class="form-label h3"><h4 class="text-white">Etiopes:</h4>{{Etiopes}}</label>
+            <label class="form-label "><h6 class="text-white">Etiopes:</h6>{{Etiopes}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Novedades" class="form-label h3"><h4 class="text-white">Novedades:</h4>{{novedades}}</label>
+            <label "Novedades" class="form-label "><h6 class="text-white">Novedades:</h6>{{novedades}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Amigos" class="form-label h3"><h4 class="text-white">Amigos:</h4>{{Amigos}}</label>
+            <label "Amigos" class="form-label "><h6 class="text-white">Amigos:</h6>{{Amigos}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Niños" class="form-label h3"><h4 class="text-white">Niños:</h4>{{Ninos}}</label>
+            <label "Niños" class="form-label "><h6 class="text-white">Niños:</h6>{{Ninos}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Ausentes" class="form-label h3"><h4 class="text-white">Ausentes:</h4>{{Ausentes}}</label>
+            <label "Ausentes" class="form-label"><h6 class="text-white">Ausentes:</h6>{{Ausentes}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Convertidos_adultos" class="form-label h3"><h4 class="text-white">Convertidos adultos:</h4>{{Convertidos_adultos}}</label>
+            <label "Convertidos_adultos" class="form-label"><h6 class="text-white">Convertidos adultos:</h6>{{Convertidos_adultos}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Convertidos_ninos" class="form-label h3"><h4 class="text-white">Convertidos niños:</h4>{{Convertidos_ninos}}</label>
+            <label "Convertidos_ninos" class="form-label "><h6 class="text-white">Convertidos niños:</h6>{{Convertidos_ninos}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Reconciliados" class="form-label h3"><h4 class="text-white">Reconciliados:</h4>{{Reconciliados}}</label>
+            <label "Reconciliados" class="form-label "><h6 class="text-white">Reconciliados:</h6>{{Reconciliados}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Diezmos" class="form-label h3"><h4 class="text-white">Diezmos:</h4>{{Diezmos}}</label>
+            <label "Diezmos" class="form-label "><h6 class="text-white">Diezmos:</h6>{{Diezmos}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Ofrendas" class="form-label h3"><h4 class="text-white">Ofrendas:</h4>{{Ofrendas}}</label>
+            <label "Ofrendas" class="form-label "><h6 class="text-white">Ofrendas:</h6>{{Ofrendas}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Total_financiero" class="form-label h3"><h4 class="text-white">Total financiero:</h4>{{Total_financiero}}</label>
+            <label "Total_financiero" class="form-label "><h6 class="text-white">Total financiero:</h6>{{Total_financiero}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Participacion_Mision_Amigo" class="form-label h3"><h4 class="text-white">Participacion Mision Amigo:</h4>{{Participacion_Mision_Amigo}}</label>
+            <label "Participacion_Mision_Amigo" class="form-label "><h6 class="text-white">Participacion Mision Amigo:</h6>{{Participacion_Mision_Amigo}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Participacion_Consolidacion" class="form-label h3"><h4 class="text-white">Participacion Consolidacion:</h4>{{Participacion_Consolidacion}}</label>
+            <label "Participacion_Consolidacion" class="form-label "><h6 class="text-white">Participacion Consolidacion:</h6>{{Participacion_Consolidacion}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Participacion_Discipulado_1" class="form-label h3"><h4 class="text-white">Participacion Discipulado 1:</h4>{{Participacion_Discipulado_1}}</label>
+            <label "Participacion_Discipulado_1" class="form-label "><h6 class="text-white">Participacion Discipulado 1/2:</h6>{{Participacion_Discipulado_1}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Asistencia_a_la_Escuela_de_Liderazgo" class="form-label h3"><h4 class="text-white">Asistencia a la Escuela de Liderazgo:</h4>{{Asistencia_a_la_Escuela_de_Liderazgo}}</label>
+            <label "Asistencia_a_la_Escuela_de_Liderazgo" class="form-label "><h6 class="text-white">Asistencia a la Escuela de Liderazgo:</h6>{{Asistencia_a_la_Escuela_de_Liderazgo}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Asistencia_de_Amigos" class="form-label h3"><h4 class="text-white">Asistencia de Amigos:</h4>{{Asistencia_de_Amigos}}</label>
+            <label "Asistencia_de_Amigos" class="form-label "><h6 class="text-white">Asistencia de Amigos:</h6>{{Asistencia_de_Amigos}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label "Ninos" class="form-label h3"><h4 class="text-white">Asistencia de Niños:</h4>{{Ninos}}</label>
+            <label "Ninos" class="form-label "><h6 class="text-white">Asistencia de Niños:</h6>{{Ninos}}</label>
           </div>
           <div class="form-group col-md-6">
-            <label  class="list-group-item">{{created_at}}</label>
+            <label  class="list-group-item"><h6 class="text-white">fecha:</h6>{{created_at}}</label>
           </div>
+
           
+          
+
 
           <div class="form-group col-12">
             <div class="form-check">
               
             </div>
           </div>
-            <li class="btn btn-success m-2">
+            <li class="btn btn-success ">
                 <a
                   href="/links/delete/{{id}}"
                   class="text-light text-decoration-none"
                 >Eliminar</a></li>
-              <li class="btn btn-danger m-2">
+              <li class="btn btn-danger">
                 <a
                   href="/links/editplanilla/{{id}}"
                   class="text-light text-decoration-none"
@@ -118,7 +118,6 @@
         </form>
       </div>
     </div>
-  </div>
     {{else}}
       <div class="col-md-4 mx-auto" style="padding: 160px;">
         <div class="card car-body text-center">
@@ -138,11 +137,10 @@
 
 <h1>Bautizos</h1>
 
-<div class="container p-4">
+<div class="container">
   <div class="row">
     {{#each bautizos}}
-    <div class="container d-flex justify-content-center mt-3 mb-3">
-      <div class="card bg-body-secondary" style="width: 70rem; box-shadow: 10px 10px 5px 0px rgba(54,130,123,0.75);">
+      <div class="card bg-body-secondary col-md-3 d-flex justify-content-center m-4 p-2 " style="box-shadow: 10px 10px 5px 0px rgba(54,130,123,0.75);">
         <div class="d-flex justify-content-center m-2">
           <img src="/img/logo.png" alt="logo" class="logo-form" />
         </div>
@@ -151,37 +149,37 @@
           <form class="row g-3">
             <div class="form-group col-md-6">
               <label class="form-label h3">
-                <h4 class="text-white">Nombre del lider:</h4>{{nombrelider}}
+                <h6 class="text-white">Nombre del lider:</h6>{{nombrelider}}
               </label>
             </div>
             <div class="form-group col-md-6">
               <label class="form-label h3">
-                <h4 class="text-white">Grupo Biblico al que asiste:</h4>{{nombregrupo}}
+                <h6 class="text-white">Grupo Biblico al que asiste:</h6>{{nombregrupo}}
               </label>
             </div>
             <div class="form-group col-6">
               <label class="form-label h3">
-                <h4 class="text-white">Nombre de la persona a Bauitizar:</h4>{{nombres}}
+                <h6 class="text-white">Nombre de la persona a Bauitizar:</h6>{{nombres}}
               </label>
             </div>
             <div class="form-group col-md-6">
               <label class="form-label h3">
-                <h4 class="text-white">Apellidos de la persona a Bautizar:</h4>{{apellidos}}
+                <h6 class="text-white">Apellidos de la persona a Bautizar:</h6>{{apellidos}}
               </label>
             </div>
             <div class="form-group col-md-12">
               <label class="form-label h3">
-                <h4 class="text-white">Direccion donde vive:</h4>{{direccion}}
+                <h6 class="text-white">Direccion donde vive:</h6>{{direccion}}
               </label>
             </div>
             <div class="form-group col-3">
               <label class="form-label h3">
-                <h4 class="text-white">Edad:</h4>{{edad}}
+                <h6 class="text-white">Edad:</h6>{{edad}}
               </label>
             </div>
             <div class="form-group col-3">
               <label class="form-label h3">
-                <h4 class="text-white">Numero de telefono:</h4>{{telefono}}
+                <h6 class="text-white">Numero de telefono:</h6>{{telefono}}
               </label>
             </div>
             <div >
@@ -197,7 +195,6 @@
           </form>
         </div>
       </div>
-    </div>
     {{else}}
     <div class="col-md-4 mx-auto" style="padding: 160px;">
       <div class="card car-body text-center">
@@ -216,54 +213,53 @@
 
 <h1>Reportes de Nuevos Amigos</h1>
 
-<div class="container p-4">
-  <div class="row">
+<div class="container">
+  <div class="row" >
     {{#each nuevos}}
-    <div class="container d-flex justify-content-center mt-3 mb-3">
-      <div class="card bg-body-secondary" style="width: 70rem; box-shadow: 10px 10px 5px 0px rgba(54,130,123,0.75);">
+      <div class="card bg-body-secondary col-md-3 d-flex justify-content-center m-4 p-2 " style="box-shadow: 10px 10px 5px 0px rgba(54,130,123,0.75);">
         <div class="d-flex justify-content-center m-2">
           <img src="/img/logo.png" alt="logo" class="logo-form" />
         </div>
         <h2 class="d-flex justify-content-center m-2">REPORTES DE AMIGOS</h2>
-        <div class="card-body" style="background-color: rgb(0, 109, 98);">
+        <div class="card-body " style="background-color: rgb(0, 109, 98);">
           <form class="row g-3">
             <div class="form-group col-md-6">
-              <label class="form-label h3">
-                <h4 class="text-white">Nombre del lider:</h4>{{nombrelidernuevo}}
+              <label class="form-label ">
+                <h6 class="text-white">Nombre del lider:</h6>{{nombrelidernuevo}}
               </label>
             </div>
             <div class="form-group col-md-6">
-              <label class="form-label h3">
-                <h4 class="text-white">Grupo Biblico al que asiste:</h4>{{nombregruponuevo}}
+              <label class="form-label ">
+                <h6 class="text-white">Grupo Biblico al que asiste:</h6>{{nombregruponuevo}}
               </label>
             </div>
             <div class="form-group col-6">
-              <label class="form-label h3">
-                <h4 class="text-white">Nombre del amigo:</h4>{{nombresnuevo}}
+              <label class="form-label ">
+                <h6 class="text-white">Nombre del amigo:</h6>{{nombresnuevo}}
               </label>
             </div>
             <div class="form-group col-md-6">
-              <label class="form-label h3">
-                <h4 class="text-white">Apellidos del amigo:</h4>{{apellidosnuevo}}
+              <label class="form-label ">
+                <h6 class="text-white">Apellidos del amigo:</h6>{{apellidosnuevo}}
               </label>
             </div>
             <div class="form-group col-md-12">
-              <label class="form-label h3">
-                <h4 class="text-white">Direccion donde vive:</h4>{{direccionnuevo}}
+              <label class="form-label ">
+                <h6 class="text-white">Direccion donde vive:</h6>{{direccionnuevo}}
               </label>
             </div>
-            <div class="form-group col-3">
-              <label class="form-label h3">
-                <h4 class="text-white">Edad:</h4>{{edadnuevo}}
+            <div class="form-group col-6">
+              <label class="form-label ">
+                <h6 class="text-white">Edad:</h6>{{edadnuevo}}
               </label>
             </div>
-            <div class="form-group col-3">
-              <label class="form-label h3">
-                <h4 class="text-white">Numero de telefono:</h4>{{telefononuevo}}
+            <div class="form-group col-6">
+              <label class="form-label ">
+                <h6 class="text-white">Numero de telefono:</h6>{{telefononuevo}}
               </label>
             </div>
-            <div>
-            <label  class="list-group-item">{{created_at}}</label>
+            <div class="form-group col-md-6">
+            <label  class="list-group-item"><h6 class="text-white">fecha:</h6>{{created_at}}</label>
           </div>
             
             <li class="btn btn-success m-2">
@@ -275,7 +271,6 @@
           </form>
         </div>
       </div>
-    </div>
     {{else}}
     <div class="col-md-4 mx-auto" style="padding: 160px;">
       <div class="card car-body text-center">
@@ -292,7 +287,7 @@
 <h1>Novedades</h1>
 
 <div class="container p-4">
-    <div class="row">
+    <div class="row d-flex flex-column-reverse">
         {{!-- Aquí estamos iterando sobre cada evento en la variable "eventos" --}}
         {{#each eventos}}
             <div class="card border-success m-3" style="max-width: 18rem;">
