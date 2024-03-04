@@ -3,49 +3,131 @@
 </a>  
 </form>
 
-<div class="card">
-  <div class="card-header">
-    Reportes de Grupos Biblicos
-  </div>
-  <div class="row  contenedor">
+
+
+<h1>Reportes de Grupos Biblicos</h1>
+<div class="container p-4">
+  <div class="row">
     {{#each planilla}}
-    <div class="col-md-2 m-2 " style="border: solid;">
-  <ul class="list-group list-group-flush ">
-    <li class="list-group-item"><p>SUPERVISOR DE RED:</p>{{SUPERVISOR_DE_RED}}</li>
-    <li class="list-group-item"><p >FELIPE DE RED:</p>{{FELIPE_DE_RED}}</li>
-    <li class="list-group-item"><p >FELIPE LIDER:</p>{{FELIPE_LIDER}}</li>
-    <li class="list-group-item"><p >Asistencia vea:</p>{{Asistencia_vea}}</li>
-    <li class="list-group-item"><p>Asistentes:</p>{{asistentes}}</li>
-    <li class="list-group-item"><p >Felipes:</p>{{Felipes}}</li>
-    <li class="list-group-item"><p >Etiopes:</p>{{Etiopes}}</li>
-    <li class="list-group-item"><p >Novedades:</p>{{novedades}}</li>
-    <li class="list-group-item"><p >Amigos:</p>{{Amigos}}</li>
-    <li class="list-group-item"><p >Niños:</p>{{Ninos}}</li>
-    <li class="list-group-item"><p >Ausentes:</p>{{Ausentes}}</li>
-    <li class="list-group-item"><p >Convertidos adultos:</p>{{Convertidos_adultos}}</li>
-    <li class="list-group-item"><p >Convertidos niños:</p>{{Convertidos_ninos}}</li>
-    <li class="list-group-item"><p >Reconciliados:</p>{{Reconciliados}}</li>
-    <li class="list-group-item"><p >Diezmos:</p>{{Diezmos}}</li>
-    <li class="list-group-item"><p >Ofrendas:</p>{{Ofrendas}}</li>
-    <li class="list-group-item"><p >Total financiero:</p>{{Total_financiero}}</li>
-    <li class="list-group-item"><p >Participacion Mision Amigo:</p>{{Participacion_Mision_Amigo}}</li>
-    <li class="list-group-item"><p >Participacion Consolidacion:</p>{{Participacion_Consolidacion}}</li>
-    <li class="list-group-item"><p >Participacion Discipulado 1:</p>{{Participacion_Discipulado_1}}</li>
-    <li class="list-group-item"><p >Asistencia a la Escuela de Liderazgo:</p>{{Asistencia_a_la_Escuela_de_Liderazgo}}</li>
-    <li class="list-group-item"><p >Asistencia de Amigos:</p>{{Asistencia_de_Amigos}}</li>
-    <li class="list-group-item"><p >Asistencia de Niños:</p>{{Ninos}}</li>
-    <li class="list-group-item"><p >{{created_at}}</p></li>
-     <li class="btn btn-success m-2">
+<div class="card bg-body-secondary col-md-3 d-flex justify-content-center m-4 p-2 " style="box-shadow: 10px 10px 5px 0px rgba(54,130,123,0.75);">
+        <div class="d-flex justify-content-center m-2">
+        <img src="/img/logo.png" alt="logo" class="logo-form" />
+      </div>
+      <h2 class="d-flex justify-content-center m-2">REPORTES DE GRUPOS BIBLICOS</h2>
+      <div class="card-body" style="background-color: rgb(0, 109, 98);">
+        <form class="row g-3">
+          <div class="form-group col-md-6">
+            <label class="form-label "><h6 class="text-white">Pastor Supervisor:</h6>{{PASTOR_SUPERVISOR}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="form-label "><h6 class="text-white">Coordinador Dpto:</h6>{{COORDINADOR_DPTO}}</label>
+          </div>
+          <div class="form-group col-6">
+            <label class="form-label "><h6 class="text-white">SUPERVISOR DE RED:</h6>{{SUPERVISOR_DE_RED}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="form-label "><h6 class="text-white">FELIPE DE RED:</h6>{{FELIPE_DE_RED}}</label>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label class="form-label "><h6 class="text-white">FELIPE LIDER:</h6>{{FELIPE_LIDER}}</label>
+          </div>
+          <div class="form-group col-4">
+            <label class="form-label "><h6 class="text-white">Asistencia vea:</h6>{{Asistencia_vea}}</label>
+          </div>
+          <div class="form-group col-4">
+            <label class="form-label "><h6 class="text-white">Asistentes:</h6>{{asistentes}}</label>
+          </div>
+          <div class="form-group col-3">
+            <label class="form-label "><h6 class="text-white">Felipes:</h6>{{Felipes}}</label>
+          </div>
+          <div class="form-group col-3">
+            <label class="form-label "><h6 class="text-white">Etiopes:</h6>{{Etiopes}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Novedades" class="form-label "><h6 class="text-white">Novedades:</h6>{{novedades}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Amigos" class="form-label "><h6 class="text-white">Amigos:</h6>{{Amigos}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Niños" class="form-label "><h6 class="text-white">Niños:</h6>{{Ninos}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Ausentes" class="form-label"><h6 class="text-white">Ausentes:</h6>{{Ausentes}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Convertidos_adultos" class="form-label"><h6 class="text-white">Convertidos adultos:</h6>{{Convertidos_adultos}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Convertidos_ninos" class="form-label "><h6 class="text-white">Convertidos niños:</h6>{{Convertidos_ninos}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Reconciliados" class="form-label "><h6 class="text-white">Reconciliados:</h6>{{Reconciliados}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Diezmos" class="form-label "><h6 class="text-white">Diezmos:</h6>{{Diezmos}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Ofrendas" class="form-label "><h6 class="text-white">Ofrendas:</h6>{{Ofrendas}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Total_financiero" class="form-label "><h6 class="text-white">Total financiero:</h6>{{Total_financiero}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Participacion_Mision_Amigo" class="form-label "><h6 class="text-white">Participacion Mision Amigo:</h6>{{Participacion_Mision_Amigo}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Participacion_Consolidacion" class="form-label "><h6 class="text-white">Participacion Consolidacion:</h6>{{Participacion_Consolidacion}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Participacion_Discipulado_1" class="form-label "><h6 class="text-white">Participacion Discipulado 1/2:</h6>{{Participacion_Discipulado_1}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Asistencia_a_la_Escuela_de_Liderazgo" class="form-label "><h6 class="text-white">Asistencia a la Escuela de Liderazgo:</h6>{{Asistencia_a_la_Escuela_de_Liderazgo}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Asistencia_de_Amigos" class="form-label "><h6 class="text-white">Asistencia de Amigos:</h6>{{Asistencia_de_Amigos}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label "Ninos" class="form-label "><h6 class="text-white">Asistencia de Niños:</h6>{{Ninos}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label  class="list-group-item"><h6 class="text-white">fecha:</h6>{{created_at}}</label>
+          </div>
+
+          
+          
+
+
+          <div class="form-group col-12">
+            <div class="form-check">
+              
+            </div>
+          </div>
+            <li class="btn btn-success ">
                 <a
                   href="/links/delete/{{id}}"
                   class="text-light text-decoration-none"
                 >Eliminar</a></li>
-  </ul>
-   </div>
+              <li class="btn btn-danger">
+                <a
+                  href="/links/editplanilla/{{id}}"
+                  class="text-light text-decoration-none"
+                >Editar</a></li>
+        </form>
+      </div>
+    </div>
+    {{else}}
+      <div class="col-md-4 mx-auto" style="padding: 160px;">
+        <div class="card car-body text-center">
+          <p>No Han cargado los reportes aún</p>
+        </div>
+
+      </div>
     {{/each}}
   </div>
 </div>
-
 
 <form action="/links/profile" class="inicio">
   <button class="fa-solid fa-arrow-left etc"></button>
@@ -53,72 +135,181 @@
 
 
 
-<div class="card">
-  <div class="card-header">
-    Reportes pero para Bautizos
-  </div>
-  <div class="row ">
+<h1>Bautizos</h1>
+
+<div class="container">
+  <div class="row">
     {{#each bautizos}}
-    <div class="col-md-2 m-2" style="border: solid;">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item"><p >Nombre del lider:</p>{{nombrelider}}</li>
-    <li class="list-group-item"><p >Grupo Biblico al que asiste:</p>{{nombregrupo}}</li>
-    <li class="list-group-item"><p >Nombre de la persona a Bauitizar:</p>{{nombres}}</li>
-    <li class="list-group-item"><p >Apellidos de la persona a Bautizar:</p>{{apellidos}}</li>
-    <li class="list-group-item"><p >Direccion donde vive:</p>{{direccion}}</li>
-    <li class="list-group-item"><p >Edad:</p>{{edad}}</li>
-    <li class="list-group-item"><p >Numero de telefono:</p>{{telefono}}</li>
-    <li class="list-group-item">{{created_at}}</li>
-     <li class="btn btn-success m-2">
-                <a
-                  href="/links/delete/{{id}}"
-                  class="text-light text-decoration-none"
-                >Eliminar</a></li>
-  </ul>
-   </div>
-   {{else}}
-            <div class="col-md-4 mx-auto">
-                <div class="card car-body text-center">
-                    <p>No Tienes Eventos Creados</p>
-                </div>
+      <div class="card bg-body-secondary col-md-3 d-flex justify-content-center m-4 p-2 " style="box-shadow: 10px 10px 5px 0px rgba(54,130,123,0.75);">
+        <div class="d-flex justify-content-center m-2">
+          <img src="/img/logo.png" alt="logo" class="logo-form" />
+        </div>
+        <h2 class="d-flex justify-content-center m-2">REPORTES DE PERSONAS A BAUTIZAR</h2>
+        <div class="card-body" style="background-color: rgb(0, 109, 98);">
+          <form class="row g-3">
+            <div class="form-group col-md-6">
+              <label class="form-label h3">
+                <h6 class="text-white">Nombre del lider:</h6>{{nombrelider}}
+              </label>
             </div>
+            <div class="form-group col-md-6">
+              <label class="form-label h3">
+                <h6 class="text-white">Grupo Biblico al que asiste:</h6>{{nombregrupo}}
+              </label>
+            </div>
+            <div class="form-group col-6">
+              <label class="form-label h3">
+                <h6 class="text-white">Nombre de la persona a Bauitizar:</h6>{{nombres}}
+              </label>
+            </div>
+            <div class="form-group col-md-6">
+              <label class="form-label h3">
+                <h6 class="text-white">Apellidos de la persona a Bautizar:</h6>{{apellidos}}
+              </label>
+            </div>
+            <div class="form-group col-md-12">
+              <label class="form-label h3">
+                <h6 class="text-white">Direccion donde vive:</h6>{{direccion}}
+              </label>
+            </div>
+            <div class="form-group col-3">
+              <label class="form-label h3">
+                <h6 class="text-white">Edad:</h6>{{edad}}
+              </label>
+            </div>
+            <div class="form-group col-3">
+              <label class="form-label h3">
+                <h6 class="text-white">Numero de telefono:</h6>{{telefono}}
+              </label>
+            </div>
+            <div >
+            <label  class="list-group-item">{{created_at}}</label>
+          </div>
+            <li class="btn btn-success m-2">
+              <a href="/links/delete/{{id}}" class="text-light text-decoration-none">Eliminar</a>
+            </li>
+            <li class="btn btn-danger m-2">
+              <a href="/links/editbautizos/{{id}}" class="text-light text-decoration-none">Editar</a>
+            </li>
+            
+          </form>
+        </div>
+      </div>
+    {{else}}
+    <div class="col-md-4 mx-auto" style="padding: 160px;">
+      <div class="card car-body text-center">
+        <p>No se han cargado reportes de bautizados</p>
+      </div>
+    </div>
     {{/each}}
   </div>
 </div>
+
 
 
 
 
 {{!-- nuevos --}}
-<div class="card">
-  <div class="card-header">
-    Reportes Personas Nuevas
-  </div>
-  <div class="row">
+
+<h1>Reportes de Nuevos Amigos</h1>
+
+<div class="container">
+  <div class="row" >
     {{#each nuevos}}
-    <div class="col-md-2 m-2" style="border: solid;">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item"><p >Nombre del lider:</p>{{nombrelidernuevo}}</li>
-    <li class="list-group-item"><p >Grupo Biblico al que asiste:</p>{{nombregruponuevo}}</li>
-    <li class="list-group-item"><p >Nombre del amigo:</p>{{nombresnuevo}}</li>
-    <li class="list-group-item"><p >Apellidos del amigo:</p>{{apellidosnuevo}}</li>
-    <li class="list-group-item"><p >Direccion donde vive:</p>{{direccionnuevo}}</li>
-    <li class="list-group-item"><p >Edad:</p>{{edadnuevo}}</li>
-    <li class="list-group-item"><p >Numero de telefono:</p>{{telefononuevo}}</li>
-    <li class="list-group-item">{{created_at}}</li>
-     <li class="btn btn-success m-2">
-                <a
-                  href="/links/delete/{{id}}"
-                  class="text-light text-decoration-none"
-                >Eliminar</a></li>
-  </ul>
-   </div>
-   {{else}}
+      <div class="card bg-body-secondary col-md-3 d-flex justify-content-center m-4 p-2 " style="box-shadow: 10px 10px 5px 0px rgba(54,130,123,0.75);">
+        <div class="d-flex justify-content-center m-2">
+          <img src="/img/logo.png" alt="logo" class="logo-form" />
+        </div>
+        <h2 class="d-flex justify-content-center m-2">REPORTES DE AMIGOS</h2>
+        <div class="card-body " style="background-color: rgb(0, 109, 98);">
+          <form class="row g-3">
+            <div class="form-group col-md-6">
+              <label class="form-label ">
+                <h6 class="text-white">Nombre del lider:</h6>{{nombrelidernuevo}}
+              </label>
+            </div>
+            <div class="form-group col-md-6">
+              <label class="form-label ">
+                <h6 class="text-white">Grupo Biblico al que asiste:</h6>{{nombregruponuevo}}
+              </label>
+            </div>
+            <div class="form-group col-6">
+              <label class="form-label ">
+                <h6 class="text-white">Nombre del amigo:</h6>{{nombresnuevo}}
+              </label>
+            </div>
+            <div class="form-group col-md-6">
+              <label class="form-label ">
+                <h6 class="text-white">Apellidos del amigo:</h6>{{apellidosnuevo}}
+              </label>
+            </div>
+            <div class="form-group col-md-12">
+              <label class="form-label ">
+                <h6 class="text-white">Direccion donde vive:</h6>{{direccionnuevo}}
+              </label>
+            </div>
+            <div class="form-group col-6">
+              <label class="form-label ">
+                <h6 class="text-white">Edad:</h6>{{edadnuevo}}
+              </label>
+            </div>
+            <div class="form-group col-6">
+              <label class="form-label ">
+                <h6 class="text-white">Numero de telefono:</h6>{{telefononuevo}}
+              </label>
+            </div>
+            <div class="form-group col-md-6">
+            <label  class="list-group-item"><h6 class="text-white">fecha:</h6>{{created_at}}</label>
+          </div>
+            
+            <li class="btn btn-success m-2">
+              <a href="/links/delete/{{id}}" class="text-light text-decoration-none">Eliminar</a>
+            </li>
+            <li class="btn btn-danger m-2">
+              <a href="/links/editnuevos/{{id}}" class="text-light text-decoration-none">Editar</a>
+            </li>
+          </form>
+        </div>
+      </div>
+    {{else}}
+    <div class="col-md-4 mx-auto" style="padding: 160px;">
+      <div class="card car-body text-center">
+        <p>No se han cargado reportes de nuevos amigos</p>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
+
+
+{{!-- Eventos --}}
+
+<h1>Novedades</h1>
+
+<div class="container p-4">
+    <div class="row d-flex flex-column-reverse">
+        {{!-- Aquí estamos iterando sobre cada evento en la variable "eventos" --}}
+        {{#each eventos}}
+            <div class="card border-success m-3" style="max-width: 18rem;">
+                <div class="card-header bg-transparent border-success">{{Dia}}</div>
+                <div class="card-body text-success">
+                    <h5 class="card-title">{{descripcion}}</h5>
+                    <p class="card-text">{{fecha}}</p>
+                </div>
+                <div class="card-footer bg-transparent border-success">{{Fecha}},{{Hora}}</div>
+                <li class="btn btn-success m-2">
+                    <a href="/links/delete/{{id}}" class="text-light text-decoration-none">Eliminar</a>
+                </li>
+            </div>
+        {{!-- Si no hay eventos, se muestra este mensaje --}}
+        {{else}}
             <div class="col-md-4 mx-auto">
                 <div class="card car-body text-center">
                     <p>No Tienes Eventos Creados</p>
                 </div>
             </div>
-    {{/each}}
-  </div>
+        {{/each}}
+    </div>
 </div>
+
+
