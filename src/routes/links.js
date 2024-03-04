@@ -367,11 +367,13 @@ router.get('/reportes',ensureAuthenticated, async (req, res) => {
   const { data: dataPlanilla, error: errorPlanilla } = await supabase
     .from('planilla')
     .select('*')
+    .order('created_at', { ascending: false });
 
   // Obtén los datos de la tabla 'bautizos'
   const { data: dataBautizos, error: errorBautizos } = await supabase
     .from('bautizos')
     .select('*')
+    .order('created_at', { ascending: false });
 
 
 
@@ -379,11 +381,13 @@ router.get('/reportes',ensureAuthenticated, async (req, res) => {
   const { data: dataNuevos, error: errorNuevos } = await supabase
     .from('nuevos')
     .select('*')
+    .order('created_at', { ascending: false });
 
   // Obtén los datos de la tabla 'eventos'
   const { data: dataEventos, error: errorEventos } = await supabase
     .from('eventos')
     .select('*')
+    .order('created_at', { ascending: false });
 
   // Renderiza tu archivo '.hbs' pasando los datos obtenidos
   res.render("links/reportes", { 
@@ -405,11 +409,13 @@ router.get('/pastores',ensureAuthenticated, async (req, res) => {
   const { data: dataPlanilla, error: errorPlanilla } = await supabase
     .from('planilla')
     .select('*')
+    .order('created_at', { ascending: false });
 
   // Obtén los datos de la tabla 'bautizos'
   const { data: dataBautizos, error: errorBautizos } = await supabase
     .from('bautizos')
     .select('*')
+    .order('created_at', { ascending: false });
 
 
 
@@ -417,11 +423,13 @@ router.get('/pastores',ensureAuthenticated, async (req, res) => {
   const { data: dataNuevos, error: errorNuevos } = await supabase
     .from('nuevos')
     .select('*')
+    .order('created_at', { ascending: false });
 
   // Obtén los datos de la tabla 'eventos'
   const { data: dataEventos, error: errorEventos } = await supabase
     .from('eventos')
     .select('*')
+    .order('created_at', { ascending: false });
 
   // Renderiza tu archivo '.hbs' pasando los datos obtenidos
   res.render("links/pastores", { 
@@ -431,6 +439,7 @@ router.get('/pastores',ensureAuthenticated, async (req, res) => {
     eventos: dataEventos 
   });
 });
+
 
 
 // rutas
