@@ -43,7 +43,6 @@ router.post("/planilla",  async (req, res) => {
     asistencia_hermanos,
     Asistencia_de_Amigos,
     Asistencia_de_Ninos,
-    created_at,
   } = req.body;
 
   const { error } = await supabase
@@ -75,7 +74,6 @@ router.post("/planilla",  async (req, res) => {
       asistencia_hermanos,
       Asistencia_de_Amigos,
       Asistencia_de_Ninos,
-      created_at,
     }]);
 
   if (error) {
