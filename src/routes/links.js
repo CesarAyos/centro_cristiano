@@ -11,7 +11,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 
 
-router.get("/planilla", (req, res) => {
+router.get("/planilla",ensureAuthenticated, (req, res) => {
   res.render("links/planilla");
 });
 
@@ -479,7 +479,7 @@ router.get("/bautizos",ensureAuthenticated, async (req, res) => {
 });
 
 
-router.get("/nuevos", async (req, res) => {
+router.get("/nuevos",ensureAuthenticated, async (req, res) => {
   res.render("links/nuevos");
 });
 
