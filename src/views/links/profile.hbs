@@ -1,19 +1,52 @@
-  <p class="text-center text-success fs-4 mt-4">
-    Recuerda tener todo a la mano para realizar tu reporte, 
-    no olvides confirmar que se haya cargado tu informacion
-  </p> 
+  <div
+    class="alert alert-primary alert-dismissible fade show text-white"
+    style="background:rgba(0, 110, 97, 0.938);"
+    role="alert"
+  >
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+    <strong>Bienvenido</strong> Recuerda estamos para servir y no para ser servido
+  </div>
   
+  <script>
+    var alertList = document.querySelectorAll(".alert");
+    alertList.forEach(function (alert) {
+      new bootstrap.Alert(alert);
+    });
+  </script>
+
+    
 <div class="d-flex justify-content-center m-5" >
 <div class="list-group  p-4" style="width: 25rem;background: linear-gradient(360deg, rgba(243, 240, 240, 0.055) 10%, rgba(0,110,97,1) 90%);">
   <a href="/links/planilla" class=" text-center text-decoration-none fs-5 m-2"> <button  type="button" class="list-group-item list-group-item-action text-success" style="border-radius:20px;">Reporte de Grupo Biblico</button></a>
   <a href="/links/nuevos" class="text-center text-decoration-none fs-5 m-2"> <button  type="button" class="list-group-item list-group-item-action text-success" style="border-radius:20px;">Reporte de Personas Nuevas</button></a>
   <a href="/links/reportes" class="text-center text-decoration-none fs-5 m-2"> <button  type="button" class="list-group-item list-group-item-action text-success" style="border-radius:20px;">Ver Reportes</button></a>
   <a href="/links/pastores" class="text-center text-decoration-none fs-5 m-2"> <button  type="button" class="list-group-item list-group-item-action text-success" style="border-radius:20px;">Pastores</button></a>
+  <form action="/signin" method="post" class="text-center text-decoration-none fs-5 m-2"><button type="submit" class="list-group-item list-group-item-action text-success"  style="border-radius:20px;">Cerrar sesión</button> </form>
 </div>
 </div>
-        <form action="/signin" method="post">
-          <button type="submit">Cerrar sesión</button>
-        </form>
+        
+
+
+<div
+    class="alert alert-primary alert-dismissible fade show text-white"
+    style="background:rgba(0, 110, 97, 0.938);"
+    role="alert"
+  >
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  
+    <strong>Recuerda!</strong> tener todo a la mano para realizar tu reporte, 
+    no olvides confirmar que se haya cargado tu informacion
+  </div>
 
 
 
