@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const multer = require('multer');
 
 const { createClient } = require ('@supabase/supabase-js');
 
@@ -8,6 +9,18 @@ require('dotenv').config();
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
+
+
+const storage = multer.diskStorage({
+  destination: function(req, file, callback) {
+    callback(null, './uploads');
+  },
+  filename: function(req, file, callback) {
+    callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage: storage });
 
 
 
@@ -99,6 +112,7 @@ router.get("/",  async (req, res) => {
   }
 });
 
+
 router.get("/editplanilla/:id",  async (req, res) => {
   const { id } = req.params;
   const { data, error } = await supabase
@@ -158,96 +172,6 @@ router.post("/edit/:id",  async (req, res) => {
   }
 });
 
-
-// bautizos
-
-router.post("/bautizos", async (req, res) => {
-  const {
-    nombrelider,
-    nombregrupo,
-    nombres,
-    apellidos,
-    direccion,
-    edad,
-    telefono,
-  } = req.body;
-
-  const { data, error } = await supabase
-    .from('bautizos')
-    .insert([
-      { 
-        nombrelider,
-        nombregrupo,
-        nombres,
-        apellidos,
-        direccion,
-        edad,
-        telefono,
-      },
-    ]);
-
-  if (error) {
-    console.log(error);
-    return;
-  }
-
-  req.flash(
-    "success",
-    "El formulario a sido enviado con exito, alguna duda o modificacion, comunicarse con su Felipe lider , o sus Pastores"
-  );
-  res.redirect("/links/bautizos");
-});
-
-router.get("/editbautizos/:id", async (req, res) => {
-  const { id } = req.params;
-  const { data, error } = await supabase
-    .from('bautizos')
-    .select('*')
-    .eq('id', id);
-
-  if (error) {
-    console.log(error);
-    return;
-  }
-
-  res.render("links/editbautizos", { bautizos: data[0] });
-});
-
-router.post("/editbautizos/:id", async (req, res) => {
-  const { id } = req.params;
-  const {
-    nombrelider,
-    nombregrupo,
-    nombres,
-    apellidos,
-    direccion,
-    edad,
-    telefono,
-  } = req.body;
-
-  const { data, error } = await supabase
-    .from('bautizos')
-    .update({
-      nombrelider,
-      nombregrupo,
-      nombres,
-      apellidos,
-      direccion,
-      edad,
-      telefono,
-    })
-    .eq('id', id);
-
-  if (error) {
-    console.log(error);
-    return;
-  }
-
-  req.flash("success", "producto modificado");
-  res.redirect("/links/");
-});
-
-
 // nuevos
 
 router.post("/nuevos", async (req, res) => {
@@ -302,39 +226,6 @@ router.get("/editnuevos/:id", async (req, res) => {
   res.render("links/editnuevos", { nuevos: data[0] });
 });
 
-router.post("/editnuevos/:id", async (req, res) => {
-  const { id } = req.params;
-  const {
-    nombrelidernuevo,
-    nombregruponuevo,
-    nombresnuevo,
-    apellidosnuevo,
-    direccionnuevo,
-    edadnuevo,
-    telefononuevo,
-  } = req.body;
-
-  const { error } = await supabase
-    .from('nuevos')
-    .update({ 
-      nombrelidernuevo,
-      nombregruponuevo,
-      nombresnuevo,
-      apellidosnuevo,
-      direccionnuevo,
-      edadnuevo,
-      telefononuevo,
-    })
-    .eq('id', id);
-
-  if (error) {
-    console.log(error);
-    return;
-  }
-
-  req.flash("success", "producto modificado");
-  res.redirect("/links/");
-});
 
 router.get("/delete/:id", async (req, res) => {
   const { id } = req.params;
@@ -349,16 +240,6 @@ router.get("/delete/:id", async (req, res) => {
     .delete()
     .eq('id', id);
 
-  await supabase
-    .from('bautizos')
-    .delete()
-    .eq('id', id);
-
-  await supabase
-    .from('eventos')
-    .delete()
-    .eq('id', id);
-
   res.redirect("/links/reportes");
 });
 
@@ -369,32 +250,17 @@ router.get('/reportes', async (req, res) => {
     .select('*')
     .order('created_at', { ascending: false });
 
-  // Obtén los datos de la tabla 'bautizos'
-  const { data: dataBautizos, error: errorBautizos } = await supabase
-    .from('bautizos')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-
-
   // Obtén los datos de la tabla 'nuevos'
   const { data: dataNuevos, error: errorNuevos } = await supabase
     .from('nuevos')
     .select('*')
     .order('created_at', { ascending: false });
 
-  // Obtén los datos de la tabla 'eventos'
-  const { data: dataEventos, error: errorEventos } = await supabase
-    .from('eventos')
-    .select('*')
-    .order('created_at', { ascending: false });
 
   // Renderiza tu archivo '.hbs' pasando los datos obtenidos
   res.render("links/reportes", { 
     planilla: dataPlanilla, 
-    bautizos: dataBautizos, 
     nuevos: dataNuevos, 
-    eventos: dataEventos 
   });
 });
 
@@ -411,32 +277,17 @@ router.get('/pastores', async (req, res) => {
     .select('*')
     .order('created_at', { ascending: false });
 
-  // Obtén los datos de la tabla 'bautizos'
-  const { data: dataBautizos, error: errorBautizos } = await supabase
-    .from('bautizos')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-
 
   // Obtén los datos de la tabla 'nuevos'
   const { data: dataNuevos, error: errorNuevos } = await supabase
     .from('nuevos')
     .select('*')
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false }); 
 
-  // Obtén los datos de la tabla 'eventos'
-  const { data: dataEventos, error: errorEventos } = await supabase
-    .from('eventos')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  // Renderiza tu archivo '.hbs' pasando los datos obtenidos
+    // Renderiza tu archivo '.hbs' pasando los datos obtenidos
   res.render("links/pastores", { 
     planilla: dataPlanilla, 
-    bautizos: dataBautizos, 
-    nuevos: dataNuevos, 
-    eventos: dataEventos 
+    nuevos: dataNuevos,
   });
 });
 
@@ -465,99 +316,36 @@ router.get("/donaciones", async (req, res) => {
   res.render("links/donaciones");
 });
 
-router.get("/eventos", async (req, res) => {
-  res.render("links/eventos");
-});
-
-
-
 router.get("/reportes", async (req, res) => {
   res.render("links/reportes");
 });
 
-router.get("/bautizos", async (req, res) => {
-  res.render("links/bautizos");
-});
-
-
 router.get("/nuevos", async (req, res) => {
   res.render("links/nuevos");
-});
-
-router.get("/editbautizos",  async (req, res) => {
-  res.render("links/editbautizos");
 });
 
 router.get("/profile",  async (req, res) => {
   res.render("links/profile");
 });
 
-
-router.get("/creareventos", async (req, res) => {
-  res.render("links/creareventos");
-});
-
 router.get("/pastores", async (req, res) => {
   res.render("links/pastores");
 });
 
-router.post("/eventos", async (req, res) => {
-  const {
-    Dia,
-    descripcion,
-    Fecha,
-    Hora
-  } = req.body;
-
-  const newLink = {
-    Dia,
-    descripcion,
-    Fecha,
-    Hora
-  };
-
-  const { data, error } = await supabase
-    .from('eventos')
-    .insert([newLink]);
-
-  if (error) {
-    req.flash("error", error.message);
-  } else {
-    req.flash("success", "El evento a sido creado");
+router.get('/imagen/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { data: rows, error } = await supabase
+      .from('productos')
+      .select('imagen')
+      .eq('id', id);
+    if (error) throw error;
+    const imagen = rows[0].imagen;
+    res.sendFile(path.resolve(imagen));
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error al leer la imagen');
   }
-
-  res.redirect("/links/creareventos");
 });
-
-// Ruta GET para eliminar un evento
-router.get("/delete/:id", async (req, res) => {
-  const { id } = req.params;
-
-  const { data, error } = await supabase
-    .from('eventos')
-    . te()
-    .match({ ID: id });
-
-  if (error) {
-    req.flash("error", error.message);
-  }
-
-  res.redirect("/links/eventos");
-});
-
-// function ensureAuthenticated(req, res, next) {
-//   if (req.session.user && req.session.user.isAuthenticated) {
-//     return next();
-//   } else {
-//     return res.redirect('/signin');
-//   }
-// protector de rutas}
-
-
-
-
-
-
-
 
 module.exports = router;

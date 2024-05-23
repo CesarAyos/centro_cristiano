@@ -16,7 +16,8 @@
     data-bs-dismiss="alert"
     aria-label="Close"
   ></button>
-  <strong>Por favor , tener en cuenta la informacion de los felipes activos y inactivos</strong> Gracias..
+  <strong>Por favor , se limitaron ciertas casillas a 
+    solo numeros para evitar confusiones en la entrega del reporte general</strong> Gracias..
 </div>
 
 <script>
@@ -39,167 +40,167 @@
       <div class="card-body" style="background-color: rgb(0, 109, 98);">
         <form action="/links/planilla" method="POST" class="row g-3">
           <div class="form-group col-md-6">
-            <label class="form-label h3">PASTOR SUPERVISOR</label>
             <input
               type="text"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="PASTOR_SUPERVISOR"
               placeholder="Pastor Supervisor"
               required
             />
           </div>
           <div class="form-group col-md-6">
-            <label class="form-label h3">COORDINADOR DPTO</label>
             <input
               type="text"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="COORDINADOR_DPTO"
               placeholder="Coordinador de departamento"
               required
             />
           </div>
           <div class="form-group col-6">
-            <label class="form-label h3">SUPERVISOR DE RED</label>
             <input
               type="text"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="SUPERVISOR_DE_RED"
               placeholder="Supervisor de red"
               required
             />
           </div>
           <div class="form-group col-md-6">
-            <label class="form-label h3">FELIPE DE RED</label>
             <input
               type="text"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="FELIPE_DE_RED"
               placeholder="Felipe de red"
               required
             />
           </div>
 
-          <div class="form-group col-md-12">
-            <label class="form-label h3">FELIPE LIDER</label>
+          <div class="form-group col-md-6">
             <input
               type="text"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="FELIPE_LIDER"
               placeholder="felipe lider"
               required
             />
           </div>
           <div class="form-group col-6">
-            <label class="form-label h3">Asistencia vea</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="Asistencia_vea"
               placeholder="asistencia en el vea"
               required
             />
           </div>
           <div class="form-group col-6">
-            <label class="form-label h3">Asistentes</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="asistentes"
-              placeholder="asistencia"
+              placeholder="asistencia Grupo Biblico"
               required
             />
           </div>
           <div class="form-group col-6">
-            <label class="form-label h3">Felipes</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="Felipes"
               placeholder="felipes"
               required
             />
           </div>
           <div class="form-group col-6">
-            <label class="form-label h3">Etiopes</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="Etiopes"
               placeholder="Etiopes"
               required
             />
           </div>
           <div class="form-group col-md-6">
-            <label for="inputCity" class="form-label h3">Novedades</label>
             <input
               type="text"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="novedades"
               placeholder="Novedades"
               required
             />
           </div>
           <div class="form-group col-md-6">
-            <label for="inputCity" class="form-label h3">Amigos</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="Amigos"
               placeholder="Amigos"
               required
             />
           </div>
           <div class="form-group col-md-6">
-            <label for="inputCity" class="form-label h3">Niños</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="Ninos"
-              placeholder="Niños"
+              placeholder="Niños Grupo biblico"
               required
             />
           </div>
           <div class="form-group col-md-6">
-            <label for="inputCity" class="form-label h3">Ausentes</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="Ausentes"
               placeholder="Ausentes"
               required
             />
           </div>
           <div class="form-group col-md-6">
-            <label for="inputCity" class="form-label h3">Convertidos adultos</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="Convertidos_adultos"
               placeholder="Adultos convertidos"
               required
             />
           </div>
           <div class="form-group col-md-6">
-            <label for="inputCity" class="form-label h3">Convertidos niños</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="Convertidos_ninos"
               placeholder="Niños Convertidos"
               required
             />
           </div>
           <div class="form-group col-md-6">
-            <label for="inputCity" class="form-label h3">Reconciliados</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="Reconciliados"
               placeholder="Reconciliados"
               required
             />
           </div>
-          <div class="form-group col-md-6">
+          {{!-- <div class="form-group col-md-6">
             <label for="inputCity" class="form-label h3">Diezmos</label>
             <input
               type="text"
@@ -228,46 +229,46 @@
               placeholder="Total"
               required
             />
-          </div>
+          </div> --}}
 
 <div class="d-flex justify-content-center">
    <h2>PARTICIPACIONES</h2>
 </div>
           <div class="form-group col-md-6">
-            <label for="inputCity" class="form-label h3">Participacion Mision Amigo</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="Participacion_Mision_Amigo"
               placeholder="Participacion mision amigo"
               required
             />
           </div>
           <div class="form-group col-md-6">
-            <label for="inputCity" class="form-label h3">Participacion Consolidacion</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="Participacion_Consolidacion"
               placeholder="participacion consolidacion"
               required
             />
           </div>
           <div class="form-group col-md-6">
-            <label for="inputCity" class="form-label h3">Participacion Discipulado 1/2</label>
             <input
               type="text"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="Participacion_Discipulado_1"
-              placeholder="Participacion Discipulado 1"
+              placeholder="Participacion Discipulado 1 / 2"
               required
             />
           </div>
           <div class="form-group col-md-6">
-            <label for="inputCity" class="form-label h3">Asistencia a la Escuela de Liderazgo</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="Asistencia_a_la_Escuela_de_Liderazgo"
               placeholder="Asistencia a la Escuela de Liderazgo"
               required
@@ -279,40 +280,40 @@
 </div>
 
           <div class="form-group col-md-6">
-            <label for="inputCity" class="form-label h3">Asistencia de Hermanos</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="asistencia_hermanos"
-              placeholder="asistencia_hermanos"
+              placeholder="Asistencia de Hermanos en la Iglesia"
               required
             />
           </div>
           <div class="form-group col-md-6">
-            <label for="inputCity" class="form-label h3">Asistencia de Amigos</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="Asistencia_de_Amigos"
-              placeholder="Asistencia de Amigos"
+              placeholder="Asistencia de Amigos en la Iglesia"
               required
             />
           </div>
           <div class="form-group col-md-6">
-            <label for="inputCity" class="form-label h3">Asistencia de Niños</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
               name="Asistencia_de_Ninos"
-              placeholder="Asistencia de Niños"
+              placeholder="Asistencia de Niños en la Iglesia"
               required
             />
           </div>
 
-          <div class="form-group col-12">
+          <div class="form-group d-flex justify-content-center text-white col-12">
             <div class="form-check">
               <input
-                class="form-check-input"
+                class="form-check-input bg-primary"
                 type="checkbox"
                 id="gridCheck"
                 required
@@ -333,4 +334,16 @@
     </div>
   </div>
 </main>
+
+
+
+
+
+
+
+
+
+
+
+
 

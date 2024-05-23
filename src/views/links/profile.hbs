@@ -1,82 +1,22 @@
-<body>
+  <p class="text-center text-success fs-4 mt-4">
+    Recuerda tener todo a la mano para realizar tu reporte, 
+    no olvides confirmar que se haya cargado tu informacion
+  </p> 
   
-<header class="position-absolute top-50 start-50 translate-middle"  >
-    <div
-        class="alert alert-primary alert-dismissible fade show"
-        role="alert"
-        style="background-color: #228176;color: #ffffff;
-        box-shadow: 10px 10px 5px 200px rgba(0,0,0,0.5);"
-    >
-        <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-        ></button>
-        <div style="font-size: 20px;">
-        <strong >Bienvenido a Centro Cristiano Colón!</strong> Recuerda siempre 
-        va a hacer un privilegio servir y no ser servido --mateo 20:28--
-    </div>
-    </div>
-
-</header>
-
-<div class="container p-4">
-  <div class="row">
-    <div class="col-md-4 mx-auto">
-      <div class="card-body text-center">
-        <div class="card-body row">
-          <h3>Bienvenido </h3>
-          <a
-            href="/links/planilla"
-            class="btn text-black m-4 selector"
-            style="background: linear-gradient(to right, white, rgb(0, 110, 97)); "
-          >Crear Reporte de grupos Biblicos</a>
-        </div>
-        
-        <div class="card-body row">
-          <a
-            href="/links/bautizos"
-            class="btn text-black m-4 selector"
-            style="background: linear-gradient(to right, white, rgb(0, 110, 97)); "
-          >Crear reporte de personas a Bautizar</a>
-        </div>
-        <div class="card-body row">
-          <a
-            href="/links/nuevos"
-            class="btn text-black m-4 selector"
-            style="background: linear-gradient(to right, white, rgb(0, 110, 97)); "
-          >Crear reporte de Personas Nuevas</a>
-        </div>
-        <div class="card-body row">
-          <a
-            href="/links/reportes"
-            class="btn text-black m-4 selector"
-            style="background: linear-gradient(to right, white, rgb(0, 110, 97)); "
-          >Ver Reportes</a>
-        </div>
-        <div class="card-body row">
-          <a
-            href="/links/creareventos"
-            class="btn text-black m-4 selector"
-            style="background: linear-gradient(to right, white, rgb(0, 110, 97)); "
-          >Crear Eventos</a>
-        </div>
-        <div class="card-body row">
-          <a
-            href="/links/pastores"
-            class="btn text-black m-4 selector"
-            style="background: linear-gradient(to right, white, rgb(0, 110, 97)); "
-          >Pastores</a>
-        </div>
+<div class="d-flex justify-content-center m-5" >
+<div class="list-group  p-4" style="width: 25rem;background: linear-gradient(360deg, rgba(243, 240, 240, 0.055) 10%, rgba(0,110,97,1) 90%);">
+  <a href="/links/planilla" class=" text-center text-decoration-none fs-5 m-2"> <button  type="button" class="list-group-item list-group-item-action text-success" style="border-radius:20px;">Reporte de Grupo Biblico</button></a>
+  <a href="/links/nuevos" class="text-center text-decoration-none fs-5 m-2"> <button  type="button" class="list-group-item list-group-item-action text-success" style="border-radius:20px;">Reporte de Personas Nuevas</button></a>
+  <a href="/links/reportes" class="text-center text-decoration-none fs-5 m-2"> <button  type="button" class="list-group-item list-group-item-action text-success" style="border-radius:20px;">Ver Reportes</button></a>
+  <a href="/links/pastores" class="text-center text-decoration-none fs-5 m-2"> <button  type="button" class="list-group-item list-group-item-action text-success" style="border-radius:20px;">Pastores</button></a>
+</div>
+</div>
         <form action="/signin" method="post">
           <button type="submit">Cerrar sesión</button>
         </form>
 
-      </div>
-    </div>
-  </div>
-</div>
+
+
 
 
 
