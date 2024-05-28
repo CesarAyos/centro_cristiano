@@ -1,0 +1,27 @@
+<main>
+  <div class="container d-flex justify-content-center mt-5 mb-5">
+    <div
+      class="card bg-body-secondary"
+      style="width: 30rem; box-shadow: 10px 10px 5px 0px rgba(54,130,123,0.75);"
+    >
+      <div class="d-flex justify-content-center m-2">
+        <img src="/img/logo.png" alt="logo" class="logo-form" />
+      </div>
+       <form action="/links/bosquejo" method="POST" enctype="multipart/form-data">
+          <div class="form-group p-2">
+            <input
+              type="file"
+              class="form-control"
+              style="border-bottom: 2px solid #5504f8;"
+              name="imagen"
+              required
+            />
+            <button type="submit" class="btn btn-primary btn-lg m-2" >Cargar Bosquejo</button>
+          </div>
+          
+        </form>
+
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const path = require("path");
 const multer = require('multer');
+
 
 const { createClient } = require ('@supabase/supabase-js');
 
@@ -243,6 +245,7 @@ router.get("/delete/:id", async (req, res) => {
   res.redirect("/links/reportes");
 });
 
+
 router.get('/reportes', async (req, res) => {
   // Obtén los datos de la tabla 'planilla'
   const { data: dataPlanilla, error: errorPlanilla } = await supabase
@@ -256,11 +259,17 @@ router.get('/reportes', async (req, res) => {
     .select('*')
     .order('created_at', { ascending: false });
 
+    const { data: dataBosquejo, error: errorBosquejo } = await supabase
+    .from('bosquejo')
+    .select('*')
+    .order('created_at', { ascending: false }); 
+
 
   // Renderiza tu archivo '.hbs' pasando los datos obtenidos
   res.render("links/reportes", { 
     planilla: dataPlanilla, 
     nuevos: dataNuevos, 
+    bosquejo: dataBosquejo,
   });
 });
 
@@ -269,6 +278,17 @@ router.get('/', (req, res) => {
   res.render('index', { user: user }); 
 });
 
+
+router.get ('/verbosquejo', async (req, res) => {
+  const { data: dataBosquejo, error: errorBosquejo } = await supabase
+  .from('bosquejo')
+  .select('*')
+  .order( 'created_at' , { ascending: true })
+
+  res.render("links/verbosquejo",{
+    bosquejo: dataBosquejo,
+  });
+})
 
 router.get('/pastores', async (req, res) => {
   // Obtén los datos de la tabla 'planilla'
@@ -284,10 +304,18 @@ router.get('/pastores', async (req, res) => {
     .select('*')
     .order('created_at', { ascending: false }); 
 
+  const { data: dataBosquejo, error: errorBosquejo } = await supabase
+    .from('bosquejo')
+    .select('*')
+    .order('created_at', { ascending: false }); 
+
     // Renderiza tu archivo '.hbs' pasando los datos obtenidos
   res.render("links/pastores", { 
     planilla: dataPlanilla, 
     nuevos: dataNuevos,
+    bosquejo: dataBosquejo, 
+
+    
   });
 });
 
@@ -332,11 +360,50 @@ router.get("/pastores", async (req, res) => {
   res.render("links/pastores");
 });
 
+router.get("/verbosquejo", (req, res) => {
+  res.render("links/verbosquejo");
+});
+
+
+router.get('/bosquejo',(req, res) => {
+  res.render('links/bosquejo');
+});
+
+
+router.post("/bosquejo", upload.single("imagen"), async (req, res) => {
+  
+  if (!req.file) {
+    res.status(400).send('No se cargó ninguna imagen');
+    return;
+  }
+  
+  const imagen = req.file.path;
+  const newLink = {
+    imagen,
+  };
+  
+  try {
+    const { data, error } = await supabase
+      .from('bosquejo')
+      .insert([newLink]);
+      
+    if (error) throw error;
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error al guardar el bosquejo');
+    return;
+  }
+  
+  req.flash("success", "bosquejo Guardado");
+  res.redirect("/links/verbosquejo");
+});
+
+
 router.get('/imagen/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { data: rows, error } = await supabase
-      .from('productos')
+      .from('bosquejo')
       .select('imagen')
       .eq('id', id);
     if (error) throw error;
@@ -347,5 +414,10 @@ router.get('/imagen/:id', async (req, res) => {
     res.status(500).send('Error al leer la imagen');
   }
 });
+
+
+
+
+
 
 module.exports = router;
