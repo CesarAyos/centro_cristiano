@@ -399,6 +399,22 @@ router.post("/bosquejo", upload.single("imagen"), async (req, res) => {
 });
 
 
+// router.get('/imagen/:id', async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { data: rows, error } = await supabase
+//       .from('bosquejo')
+//       .select('imagen')
+//       .eq('id', id);
+//     if (error) throw error;
+//     const imagen = rows[0].imagen;
+//     res.sendFile(path.resolve(imagen));
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Error al leer la imagen');
+//   }
+// });
+
 router.get('/imagen/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -406,15 +422,28 @@ router.get('/imagen/:id', async (req, res) => {
       .from('bosquejo')
       .select('imagen')
       .eq('id', id);
-    if (error) throw error;
-    const imagen = rows[0].imagen;
-    res.sendFile(path.resolve(imagen));
+    if (error) {
+      console.error(error);
+      res.status(500).send('Error al consultar la base de datos');
+      return;
+    }
+
+    const imagen = rows[0]?.imagen; 
+    if (!imagen) {
+      res.status(404).send('Imagen no encontrada');
+      return;
+    }
+
+    if (fs.existsSync(imagen)) {
+      res.sendFile(path.resolve(imagen));
+    } else {
+      res.status(404).send('Imagen no encontrada en el servidor');
+    }
   } catch (error) {
     console.error(error);
     res.status(500).send('Error al leer la imagen');
   }
 });
-
 
 
 
