@@ -371,49 +371,36 @@ router.get('/bosquejo',(req, res) => {
 
 
 router.post("/bosquejo", upload.single("imagen"), async (req, res) => {
-  
-  if (!req.file) {
-    res.status(400).send('No se cargó ninguna imagen');
-    return;
-  }
-  
-  const imagen = req.file.path;
-  const newLink = {
-    imagen,
-  };
-  
   try {
+    if (!req.file) {
+      res.status(400).send('No se cargó ninguna imagen');
+      return;
+    }
+    
+    const imagen = req.file.path;
+    const newLink = {
+      imagen
+    };
+    
     const { data, error } = await supabase
       .from('bosquejo')
       .insert([newLink]);
       
-    if (error) throw error;
+    if (error) {
+      console.error(error);
+      res.status(500).send('Error al guardar el bosquejo');
+      return;
+    }
+    
+    req.flash("success", "Bosquejo guardado");
+    res.redirect("/links/verbosquejo");
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error al guardar el bosquejo');
-    return;
+    res.status(500).send('Error en el servidor');
   }
-  
-  req.flash("success", "bosquejo Guardado");
-  res.redirect("/links/verbosquejo");
 });
 
 
-// router.get('/imagen/:id', async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const { data: rows, error } = await supabase
-//       .from('bosquejo')
-//       .select('imagen')
-//       .eq('id', id);
-//     if (error) throw error;
-//     const imagen = rows[0].imagen;
-//     res.sendFile(path.resolve(imagen));
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('Error al leer la imagen');
-//   }
-// });
 
 router.get('/imagen/:id', async (req, res) => {
   try {
@@ -422,31 +409,14 @@ router.get('/imagen/:id', async (req, res) => {
       .from('bosquejo')
       .select('imagen')
       .eq('id', id);
-    if (error) {
-      console.error(error);
-      res.status(500).send('Error al consultar la base de datos');
-      return;
-    }
-
-    const imagen = rows[0]?.imagen; 
-    if (!imagen) {
-      res.status(404).send('Imagen no encontrada');
-      return;
-    }
-
-    if (fs.existsSync(imagen)) {
-      res.sendFile(path.resolve(imagen));
-    } else {
-      res.status(404).send('Imagen no encontrada en el servidor');
-    }
+    if (error) throw error;
+    const imagen = rows[0].imagen;
+    res.sendFile(path.resolve(imagen));
   } catch (error) {
     console.error(error);
     res.status(500).send('Error al leer la imagen');
   }
 });
-
-
-
 
 
 module.exports = router;
