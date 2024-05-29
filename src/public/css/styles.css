@@ -1,7 +1,8 @@
 body{
   background-image: url(/img/body.png);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover !important;
+  background-attachment: fixed;
 }
 
 .container-fluid {
