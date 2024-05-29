@@ -66,7 +66,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Inicio del servidor
 app.listen(app.get("port"), (err, res) => {
-  console.log("server on port", app.get("port"));
+  console.log("servidor establecido", app.get("port"));
 });
 
 // Establecer el motor de plantillas
