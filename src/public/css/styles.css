@@ -1,3 +1,9 @@
+body{
+  background-image: url(/img/body.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .container-fluid {
   display: flex;
   box-shadow: -1px 10px 12px 0px rgba(0, 0, 0, 0.256);
