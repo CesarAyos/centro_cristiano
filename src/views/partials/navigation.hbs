@@ -4,6 +4,9 @@
                   <a class="navbar-brand fs-3 text-white"  href="/">Centro Cristiano Colón</a>
                   <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                       <ul class="navbar-nav">
+                        <li class="btn">
+                              <a class="nav-link fs-5 text-white"  id="notificar"> <i class="fa-regular fa-bell"></i></a>
+                          </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle fs-5 text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Quienes Somos
@@ -16,7 +19,6 @@
                           <li class="nav-item">
                               <a class="nav-link active fs-5 text-white" aria-current="page" href="/links/misiones">Misiones</a>
                           </li>
-                          
                           <li class="nav-item">
                               <a class="nav-link fs-5 text-white" href="/links/donaciones">Donaciones</a>
                           </li>
@@ -58,6 +60,50 @@
 </form>
 
 </header>
+
+
+<script>
+    const notificarBtn = document.querySelector('#notificar');
+
+notificarBtn.addEventListener('click', () => {
+    Notification.requestPermission().then(resultado => {
+        console.log('Respuesta: ', resultado);
+    })
+})
+
+function mostrarNotificacion() {
+    if (Notification.permission === 'granted') {
+        const notificacion = new Notification('Centro cristiano Colón', {
+            icon: '/img/logo.png',
+            body: 'No te olvides de enviar tu reporte'
+        });
+
+        notificacion.onclick = function(){
+            window.open('https://centrocristianocolon.onrender.com/');
+        }
+
+        // Agregar evento de clic al botón de cerrar
+        notificacion.onclose = function() {
+            console.log('Notificación cerrada por el usuario');
+        };
+    }
+}
+
+// Obtén la fecha y hora específicas para el próximo martes a las 8:05 PM
+const ahora = new Date();
+const proximoMartes = new Date(ahora);
+proximoMartes.setDate(ahora.getDate() + (2 + 7 - ahora.getDay()) % 7); // Avanza al próximo martes
+proximoMartes.setHours(20, 5, 0); // Establece la hora a las 8:05 PM
+
+// Calcula el tiempo restante hasta el próximo martes a las 8:05 PM
+const tiempoRestante = proximoMartes.getTime() - Date.now();
+
+// Programa la notificación para mostrarla en el próximo martes a las 8:05 PM
+setTimeout(mostrarNotificacion, tiempoRestante);
+
+
+
+</script>
 
 
     
