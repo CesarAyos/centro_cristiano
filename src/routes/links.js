@@ -411,12 +411,15 @@ router.get('/imagen/:id', async (req, res) => {
       .eq('id', id);
     if (error) throw error;
     const imagen = rows[0].imagen;
+
+    // Corrección: Utiliza res.download() para enviar el archivo
     res.sendFile(path.resolve(imagen));
   } catch (error) {
     console.error(error);
     res.status(500).send('Error al leer la imagen');
   }
 });
+
 
 
 module.exports = router;
