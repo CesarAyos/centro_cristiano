@@ -24,6 +24,69 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+router.post("/bosquejo", upload.single("imagen"), async (req, res) => {
+  const { Titulo, Description, categoria, precios } = req.body;
+  
+  if (!req.file) {
+    res.status(400).send('No se cargó ninguna imagen');
+    return;
+  }
+  
+  const imagen = req.file.path;
+  const newLink = {
+    imagen
+  };
+  
+  try {
+    const { data, error } = await supabase
+      .from('bosquejo')
+      .insert([newLink]);
+      
+    if (error) throw error;
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error al guardar el producto');
+    return;
+  }
+  
+  req.flash("success", "Bosquejo Guardado");
+  res.redirect("/links/verbosquejo");
+});
+
+router.get('/imagen/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { data: rows, error } = await supabase
+      .from('bosquejo')
+      .select('imagen')
+      .eq('id', id);
+    if (error) throw error;
+    const imagen = rows[0].imagen;
+    res.sendFile(path.resolve(imagen));
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error al leer la imagen');
+  }
+});
+
+router.get("/verbosquejo", async (req, res) => {
+  const { data: bosquejo, error } = await supabase
+    .from('bosquejo')
+    .select('*');
+  if (error) throw error;
+  res.render("links/verbosquejo", { bosquejo });
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 router.get("/planilla", (req, res) => {
@@ -259,17 +322,10 @@ router.get('/reportes', async (req, res) => {
     .select('*')
     .order('created_at', { ascending: false });
 
-    const { data: dataBosquejo, error: errorBosquejo } = await supabase
-    .from('bosquejo')
-    .select('*')
-    .order('created_at', { ascending: false }); 
-
-
   // Renderiza tu archivo '.hbs' pasando los datos obtenidos
   res.render("links/reportes", { 
     planilla: dataPlanilla, 
     nuevos: dataNuevos, 
-    bosquejo: dataBosquejo,
   });
 });
 
@@ -278,17 +334,6 @@ router.get('/', (req, res) => {
   res.render('index', { user: user }); 
 });
 
-
-router.get ('/verbosquejo', async (req, res) => {
-  const { data: dataBosquejo, error: errorBosquejo } = await supabase
-  .from('bosquejo')
-  .select('*')
-  .order( 'created_at' , { ascending: true })
-
-  res.render("links/verbosquejo",{
-    bosquejo: dataBosquejo,
-  });
-})
 
 router.get('/pastores', async (req, res) => {
   // Obtén los datos de la tabla 'planilla'
@@ -304,18 +349,11 @@ router.get('/pastores', async (req, res) => {
     .select('*')
     .order('created_at', { ascending: false }); 
 
-  const { data: dataBosquejo, error: errorBosquejo } = await supabase
-    .from('bosquejo')
-    .select('*')
-    .order('created_at', { ascending: false }); 
-
     // Renderiza tu archivo '.hbs' pasando los datos obtenidos
   res.render("links/pastores", { 
     planilla: dataPlanilla, 
     nuevos: dataNuevos,
-    bosquejo: dataBosquejo, 
-
-    
+        
   });
 });
 
@@ -370,55 +408,8 @@ router.get('/bosquejo',(req, res) => {
 });
 
 
-router.post("/bosquejo", upload.single("imagen"), async (req, res) => {
-  try {
-    if (!req.file) {
-      res.status(400).send('No se cargó ninguna imagen');
-      return;
-    }
-    
-    const imagen = req.file.path;
-    const newLink = {
-      imagen
-    };
-    
-    const { data, error } = await supabase
-      .from('bosquejo')
-      .insert([newLink]);
-      
-    if (error) {
-      console.error(error);
-      res.status(500).send('Error al guardar el bosquejo');
-      return;
-    }
-    
-    req.flash("success", "Bosquejo guardado");
-    res.redirect("/links/verbosquejo");
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error en el servidor');
-  }
-});
 
 
-
-router.get('/imagen/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { data: rows, error } = await supabase
-      .from('bosquejo')
-      .select('imagen')
-      .eq('id', id);
-    if (error) throw error;
-    const imagen = rows[0].imagen;
-
-    // Corrección: Utiliza res.download() para enviar el archivo
-    res.sendFile(path.resolve(imagen));
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error al leer la imagen');
-  }
-});
 
 
 
