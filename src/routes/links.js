@@ -25,13 +25,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post("/bosquejo", upload.single("imagen"), async (req, res) => {
-  const { Titulo, Description, categoria, precios } = req.body;
-  
-  if (!req.file) {
-    res.status(400).send('No se cargó ninguna imagen');
-    return;
-  }
-  
+    
   const imagen = req.file.path;
   const newLink = {
     imagen
