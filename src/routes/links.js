@@ -15,7 +15,9 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 const storage = multer.diskStorage({
   destination: function(req, file, callback) {
-    callback(null, './uploads');
+    // Define la carpeta de destino dinámicamente
+    const destinationFolder = './uploads'; // Cambia esto según tu necesidad
+    callback(null, destinationFolder);
   },
   filename: function(req, file, callback) {
     callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -24,7 +26,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/bosquejo", upload.single("imagen"), async (req, res) => {
+
+router.post("/bosquejo", upload.single('imagen'), async (req, res) => {
     
   const imagen = req.file.path;
   const newLink = {
