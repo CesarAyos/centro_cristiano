@@ -74,6 +74,17 @@ router.get("/verbosquejo", async (req, res) => {
   res.render("links/verbosquejo", { bosquejo });
 });
 
+router.get("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+
+  await supabase
+    .from('bosquejo')
+    .delete()
+    .eq('id', id);
+
+  res.redirect("/links/verbosquejo");
+});
+
 
 
 
