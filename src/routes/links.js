@@ -12,15 +12,7 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const client = new S3Client({
-  forcePathStyle: true,
-  region: 'us-west-1',
-  endpoint: 'https://wrdalmrnoeslzthwqnuo.supabase.co/storage/v1/s3',
-  credentials: {
-    accessKeyId: process.env.SUPABASE_KEY,
-    accessSecretKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyZGFsbXJub2VzbHp0aHdxbnVvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwNjY2MDY3NCwiZXhwIjoyMDIyMjM2Njc0fQ.Y3-Ffv-8-CUTcA-NT2BAvR_9yuiC-zy1EJCStN0QkdU',
-  }
-})
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
