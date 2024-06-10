@@ -24,11 +24,9 @@ const client = new S3Client({
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-      // Ruta donde se guardarán las imágenes en disco
-      cb(null, 'src/uploads');
+      cb(null, '/Centro Cristiano Colon/uploads');
   },
   filename: (req, file, cb) => {
-      // Nombre del archivo (puedes personalizarlo según tus necesidades)
       cb(null, Date.now() + '-' + file.originalname);
   }
 });
