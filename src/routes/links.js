@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const path = require("path");
 const multer = require('multer');
-
+const { S3Client } = require('@aws-sdk/client-s3');
 
 const { createClient } = require ('@supabase/supabase-js');
 
@@ -12,22 +12,30 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+const client = new S3Client({
+  forcePathStyle: true,
+  region: 'us-west-1',
+  endpoint: 'https://wrdalmrnoeslzthwqnuo.supabase.co/storage/v1/s3',
+  credentials: {
+    accessKeyId: process.env.SUPABASE_KEY,
+    accessSecretKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyZGFsbXJub2VzbHp0aHdxbnVvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwNjY2MDY3NCwiZXhwIjoyMDIyMjM2Njc0fQ.Y3-Ffv-8-CUTcA-NT2BAvR_9yuiC-zy1EJCStN0QkdU',
+  }
+})
 
 const storage = multer.diskStorage({
-  destination: function(req, file, callback) {
-    // Define la carpeta de destino dinámicamente
-    const destinationFolder = './uploads'; // Cambia esto según tu necesidad
-    callback(null, destinationFolder);
+  destination: (req, file, cb) => {
+      // Ruta donde se guardarán las imágenes en disco
+      cb(null, 'src/uploads');
   },
-  filename: function(req, file, callback) {
-    callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  filename: (req, file, cb) => {
+      // Nombre del archivo (puedes personalizarlo según tus necesidades)
+      cb(null, Date.now() + '-' + file.originalname);
   }
 });
+const upload = multer({ storage }).single('imagen');
 
-const upload = multer({ storage: storage });
 
-
-router.post("/bosquejo", upload.single('imagen'), async (req, res) => {
+router.post("/bosquejo", upload, async (req, res) => {
     
   const imagen = req.file.path;
   const newLink = {
@@ -73,6 +81,20 @@ router.get("/verbosquejo", async (req, res) => {
   if (error) throw error;
   res.render("links/verbosquejo", { bosquejo });
 });
+
+
+
+
+router.get("/verbosquejo", async (req, res) => {
+  const { data: bosquejo, error } = await supabase
+    .from('bosquejo')
+    .select('*');
+  if (error) throw error;
+  res.render("links/verbosquejo", { bosquejo });
+});
+
+
+
 
 router.get("/delete/:id", async (req, res) => {
   const { id } = req.params;
