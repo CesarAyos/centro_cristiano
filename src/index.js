@@ -8,6 +8,7 @@ const cookieSession = require("cookie-session");
 const cookieParser = require('cookie-parser');
 
 
+
 // Inicializaciones
 const app = express();
 
@@ -32,6 +33,7 @@ app.post('/login', async (req, res) => {
   if (error) return res.status(401).send({ error: error.message });
   return res.status(200).send({ user });
 });
+
 
 app.use(flash());
 app.use(morgan("dev"));

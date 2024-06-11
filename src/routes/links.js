@@ -2,7 +2,10 @@ const express = require("express");
 const router = express.Router();
 const path = require("path");
 const multer = require('multer');
-const { S3Client } = require('@aws-sdk/client-s3');
+const fileUpload = require('express-fileupload');
+router.use(fileUpload());
+
+
 
 const { createClient } = require ('@supabase/supabase-js');
 
@@ -12,90 +15,42 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+async function uploadFile(filePath, file) {
+  const { data, error } = await supabase.storage.from('imagenes').upload(filePath, file, {
+    contentType: 'image/jpeg',
+  })
 
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-      cb(null, './uploads');
-  },
-  filename: (req, file, cb) => {
-      cb(null, Date.now() + '-' + file.originalname);
+  if (error) {
+    console.error('Hubo un error subiendo el archivo:', error)
+  } else {
+    console.log('Archivo subido con éxito')
   }
-});
-const upload = multer({ storage }).single('imagen');
+}
 
 
-router.post("/bosquejo", upload, async (req, res) => {
-    
-  const imagen = req.file.path;
-  const newLink = {
-    imagen
-  };
-  
-  try {
-    const { data, error } = await supabase
-      .from('bosquejo')
-      .insert([newLink]);
-      
-    if (error) throw error;
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error al guardar el producto');
-    return;
+
+router.post('/bosquejo', async (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
   }
-  
-  req.flash("success", "Bosquejo Guardado");
+
+  let userUploadedFile = req.files.fileUpload;
+
+  let filePath = `bosquejo/${userUploadedFile.name}`;
+
+
+  let file = userUploadedFile.data;
+
+ 
+  uploadFile(filePath, file);
+
+  req.flash(
+    "success",
+    "Archivo subido con éxito"
+  );
   res.redirect("/links/verbosquejo");
 });
 
-router.get('/imagen/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { data: rows, error } = await supabase
-      .from('bosquejo')
-      .select('imagen')
-      .eq('id', id);
-    if (error) throw error;
-    const imagen = rows[0].imagen;
-    res.sendFile(path.resolve(imagen));
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error al leer la imagen');
-  }
-});
-
-router.get("/verbosquejo", async (req, res) => {
-  const { data: bosquejo, error } = await supabase
-    .from('bosquejo')
-    .select('*');
-  if (error) throw error;
-  res.render("links/verbosquejo", { bosquejo });
-});
-
-
-
-
-router.get("/verbosquejo", async (req, res) => {
-  const { data: bosquejo, error } = await supabase
-    .from('bosquejo')
-    .select('*');
-  if (error) throw error;
-  res.render("links/verbosquejo", { bosquejo });
-});
-
-
-
-
-router.get("/delete/:id", async (req, res) => {
-  const { id } = req.params;
-
-  await supabase
-    .from('bosquejo')
-    .delete()
-    .eq('id', id);
-
-  res.redirect("/links/verbosquejo");
-});
 
 
 
