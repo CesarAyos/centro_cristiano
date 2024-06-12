@@ -28,7 +28,7 @@ async function uploadFile(filePath, file) {
 }
 
 
-
+//cargar imagenes a storage de supabase
 router.post('/bosquejo', async (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
@@ -48,20 +48,44 @@ router.post('/bosquejo', async (req, res) => {
     "success",
     "Archivo subido con éxito"
   );
-  res.redirect("/links/verbosquejo");
+  res.redirect("/links/bosquejo");
 });
 
+//mostrar imagenes desde supabase
+router.get('/verbosquejo', async (req, res) => {
+  const { data, error } = await supabase
+    .storage
+    .from('imagenes')
+    .list('bosquejo', {
+      limit: 100,
+      offset: 0,
+      sortBy: { column: 'name', order: 'asc' },
+    });
 
+  if (error) {
+    console.error(error);
+    res.status(500).send('Ha ocurrido un error al obtener las imágenes');
+  } else {
+    const imagesWithUrls = await Promise.all(data.map(async image => {
+      const { data, error } = await supabase.storage.from('imagenes').getPublicUrl(`bosquejo/${image.name}`);
+      
+      if (error) {
+        console.error('Error obteniendo la URL de la imagen:', error);
+        return null;
+      }
+      
+      const url = data.publicUrl; // Aquí es donde accedes a la propiedad publicUrl
+      return {
+        name: image.name,
+        url
+      };
+    }));
+    
+    const validImages = imagesWithUrls.filter(image => image !== null && image.url !== undefined && image.name !== '.emptyFolderPlaceholder');
 
-
-
-
-
-
-
-
-
-
+    res.render("links/verbosquejo", { images: validImages });
+  }
+});
 
 
 router.get("/planilla", (req, res) => {

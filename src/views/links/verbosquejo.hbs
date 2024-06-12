@@ -2,24 +2,16 @@
   <button class="fa-solid fa-house fa-flip bg-transparent" style="border: none;color: rgb(231, 14, 14);" ></button>
 </form>
 
-
 <div class="row m-4 p-4">
-{{#each imagenes}}
+{{#each images}}
 
 <form class="col-md-4 mb-5">
   <div class="card" style="width: 20rem;">
-  <img src="/links/imagen/{{id}}" alt="bosquejo" style="width: 20rem;">
+  <img src="{{this.url}}" alt="{{this.name}}" style="width: 20rem;">
   <div class="card p-2">
     <button class="btn btn-primary">
-    <a href="/links/imagen/{{id}}" 
-    download="{{id}}" 
-    class=" text-white text-decoration-none"
-    >Descargar</a>
+    <a href="{{this.url}}" id="download-{{@index}}" data-filename="{{this.name}}" class="text-white">Descargar imagen</a>
     </button>
-    <p class="text-danger">{{created_at}}: fecha</p>
-    <button class="btn btn-success btn-lg">
-                <a href="/links/delete/{{id}}" class="text-light text-decoration-none">Eliminar</a>
-            </button>
   </div>
 </div>
 </form>
@@ -30,3 +22,35 @@
 
 {{/each}}
 </div>
+
+<script>
+  window.onload = function() {
+  const links = document.querySelectorAll('a[id^="download-"]');
+  
+  links.forEach(link => {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      
+      const url = this.href;
+      const filename = this.dataset.filename;
+      
+      fetch(url)
+        .then(response => response.blob())
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          
+          a.href = url;
+          a.download = filename || 'download';
+          a.style.display = 'none';
+          
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        })
+        .catch(error => console.error('Error:', error));
+    });
+  });
+};
+
+</script>
