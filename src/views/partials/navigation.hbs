@@ -59,7 +59,18 @@
 
 
 <script>
-    const notificarBtn = document.querySelector('#notificar');
+    // Registro del Service Worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+    .then(function(registration) {
+        console.log('Service Worker registrado con éxito:', registration);
+    })
+    .catch(function(error) {
+        console.log('El registro del Service Worker falló:', error);
+    });
+}
+
+const notificarBtn = document.querySelector('#notificar');
 
 notificarBtn.addEventListener('click', () => {
     Notification.requestPermission().then(resultado => {
@@ -86,20 +97,13 @@ function mostrarNotificacion() {
 }
 
 // Obtén la fecha y hora específicas para el próximo martes a las 8:05 PM
-const ahora = new Date();
-const proximoMartes = new Date(ahora);
-proximoMartes.setDate(ahora.getDate() + (2 + 7 - ahora.getDay()) % 7); // Avanza al próximo martes
-proximoMartes.setHours(20, 5, 0); // Establece la hora a las 8:05 PM
+// Calcula el tiempo en milisegundos para 5 minutos
+const cincoMinutos = 3 * 60 * 1000;
 
-// Calcula el tiempo restante hasta el próximo martes a las 8:05 PM
-const tiempoRestante = proximoMartes.getTime() - Date.now();
-
-// Programa la notificación para mostrarla en el próximo martes a las 8:05 PM
-setTimeout(mostrarNotificacion, tiempoRestante);
-
+// Programa la notificación para mostrarla cada 5 minutos
+setInterval(mostrarNotificacion, cincoMinutos);
 
 
 </script>
-
 
     
