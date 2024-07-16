@@ -360,9 +360,9 @@ router.get('/pastores', async (req, res) => {
 
 // rutas
 
-router.get("/Ubicanos", async (req, res) => {
-  res.render("links/Ubicanos");
-});
+// router.get("/Ubicanos", async (req, res) => {
+//   res.render("links/Ubicanos");
+// });
 
 
 router.get("/adn", async (req, res) => {
