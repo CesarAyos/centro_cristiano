@@ -23,6 +23,32 @@
 {{/each}}
 </div>
 
+
+
+<script>
+     <script>
+        function generarPDF() {
+            const pdf = new jsPDF();
+            const imagenes = document.querySelectorAll("img");
+
+            imagenes.forEach((imagen, index) => {
+                const imgData = imagen.src;
+                pdf.addImage(imgData, "JPEG", 10, 10 + index * 50, 100, 50);
+            });
+
+            pdf.save("imagenes.pdf");
+        }
+
+        // Llama a la función para generar el PDF al cargar la página
+        window.onload = generarPDF;
+    </script>
+</body>
+</html>
+
+</script>
+
+
+{{!-- 
 <script>
   window.onload = function() {
   const links = document.querySelectorAll('a[id^="download-"]');
@@ -53,4 +79,4 @@
   });
 };
 
-</script>
+</script> --}}
