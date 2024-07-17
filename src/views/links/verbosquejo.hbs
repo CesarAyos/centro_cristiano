@@ -8,8 +8,10 @@
 <form class="col-md-4 mb-5">
   <div class="card" style="width: 20rem;">
   <img src="{{this.url}}" alt="{{this.name}}" style="width: 20rem;">
-  <div class="card p-2" style="color:blue">
+  <div class="card p-2">
+    <button type="button" class="btn btn-primary">
     <a href="{{this.url}}" id="download-{{@index}}" data-filename="{{this.name}}" class="text-white">Descargar imagen</a>
+    </button>
   </div>
 </div>
 </form>
